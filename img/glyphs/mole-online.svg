@@ -1,0 +1,7 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Protein-like organic shape with a tunnel -->
+  <path d="M25 50C25 30 40 20 50 20C60 20 75 30 75 50C75 70 60 80 50 80C40 80 25 70 25 50Z" stroke="#1A1A1A" stroke-width="1.5" stroke-opacity="0.2"/>
+  <!-- The Hollow Tunnel -->
+  <path d="M40 85C45 70 45 30 60 15" stroke="#0044CC" stroke-width="6" stroke-linecap="round" stroke-opacity="0.6"/>
+  <path d="M40 85C45 70 45 30 60 15" stroke="white" stroke-width="2" stroke-linecap="round"/>
+</svg>

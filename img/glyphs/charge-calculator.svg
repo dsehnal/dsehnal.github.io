@@ -1,0 +1,11 @@
+<svg width="100" height="100" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- Potential Dipole -->
+  <circle cx="35" cy="50" r="12" stroke="#0044CC" stroke-width="1.5"/>
+  <path d="M30 50H40M35 45V55" stroke="#0044CC" stroke-width="1.5"/> <!-- Plus -->
+  
+  <circle cx="65" cy="50" r="12" stroke="#1A1A1A" stroke-width="1.5"/>
+  <path d="M60 50H70" stroke="#1A1A1A" stroke-width="1.5"/> <!-- Minus -->
+  
+  <!-- Field Lines -->
+  <path d="M45 40C50 35 55 35 60 40M45 60C50 65 55 65 60 60" stroke="#1A1A1A" stroke-width="1" stroke-opacity="0.2"/>
+</svg>
