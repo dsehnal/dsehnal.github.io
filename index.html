@@ -1,683 +1,962 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>⬢ Prime Radiant</title>
-</head>
-<body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>David Sehnal, Ph.D. | Platform Architect & Research Scientist</title>
+    <meta
+      name="description"
+      content="Portfolio of David Sehnal, Ph.D., Lead Architect of Mol* and Research Software Engineer specializing in structural biology and high-performance engineering."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      rel="stylesheet"
+    />
     <style>
-:root {
-  --text-main: #e2e8f0;
-  --text-sub: #94a3b8;
-  --text-bright: #f8fafc;
-  --accent-sun: #fbbf24;
-  --accent-earth: #38bdf8;
-  --accent-dim-sun: rgba(251,191,36,0.15);
-  --accent-dim-earth: rgba(56,189,248,0.12);
-  --bg-deep: #020617;
-  --bg-card: rgba(15,23,42,0.55);
-  --border-subtle: rgba(255,255,255,0.06);
-  --border-hover: rgba(255,255,255,0.12);
-  --phi: 1.61803398875;
-}
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background: #020617;
-  color: var(--text-main);
-  overflow-x: hidden;
-  line-height: 1.65;
-}
-a { color: var(--accent-earth); text-decoration: none; }
-a:hover { color: #7dd3fc; }
+      :root {
+        --bg-color: #ffffff;
+        --text-color: #1a1a1a;
+        --secondary-text: #4a4a4a;
+        --accent-color: #0044cc;
+        --border-color: #e5e5e5;
+        --mono-font: "SF Mono", "Consolas", "Liberation Mono", Menlo, monospace;
+        --sans-font:
+          "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          Helvetica, Arial, sans-serif;
+        --max-width: 800px;
+      }
 
-.hero {
-  position: relative;
-  height: 100vh;
-  min-height: 600px;
-  width: 100%;
-  overflow: hidden;
-  background: linear-gradient(-45deg, #020617, #080f1e, #0f172a, #1e293b, #0f172a, #080f1e, #020617);
-  background-size: 300% 300%;
-  animation: sky-cycle 60s ease-in-out infinite;
-}
-@keyframes sky-cycle { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
 
-canvas { position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+      body {
+        font-family: var(--sans-font);
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
 
-.hero-header {
-  position:absolute; top:0; left:0; right:0; z-index:10;
-  display:flex; justify-content:space-between; align-items:center;
-  padding: 1.8rem 2.5rem;
-}
-.hero-title {
-  display:flex; align-items:center; gap:0.6rem;
-  font-size:1.15rem; font-weight:300; letter-spacing:3px;
-  color: var(--text-bright);
-  animation: pulse 6s ease-in-out infinite;
-  user-select:none;
-}
-@keyframes pulse { 0%,100%{text-shadow:0 0 10px rgba(255,255,255,0.2);opacity:.85} 50%{text-shadow:0 0 20px rgba(255,255,255,0.6);opacity:1} }
+      header {
+        border-bottom: 1px solid var(--border-color);
+        padding: 1.5rem 0;
+        position: sticky;
+        top: 0;
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(8px);
+        z-index: 100;
+      }
 
-.hero-actions { display:flex; align-items:center; gap:2rem; }
-.action-link {
-  background:transparent; border:none;
-  color:var(--text-sub); font-size:0.72rem; letter-spacing:2px;
-  text-transform:uppercase; text-decoration:none; cursor:pointer;
-  transition:color 0.3s; font-family:inherit;
-}
-.action-link:hover { color:var(--text-bright); }
-.action-link.copied { color:var(--accent-sun); }
+      .container {
+        max-width: var(--max-width);
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
 
-.hero-center {
-  position:absolute; bottom:15%; left:50%; transform:translateX(-50%);
-  z-index:10; text-align:center; max-width:600px; padding:0 1.5rem;
-}
-.hero-tagline {
-  font-size:0.95rem; font-weight:300; letter-spacing:1.5px;
-  color:var(--text-sub); margin-bottom:1.5rem;
-}
-.hero-cta {
-  display:inline-flex; align-items:center; gap:0.5rem;
-  padding:0.65rem 1.8rem;
-  background:rgba(56,189,248,0.08); border:1px solid rgba(56,189,248,0.2);
-  border-radius:24px; color:var(--accent-earth);
-  font-size:0.8rem; letter-spacing:1.5px; text-transform:uppercase;
-  cursor:pointer; transition:all 0.3s; font-family:inherit;
-}
-.hero-cta:hover { background:rgba(56,189,248,0.15); border-color:rgba(56,189,248,0.35); }
-.scroll-hint {
-  position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
-  z-index:10; color:var(--text-sub); font-size:0.7rem; letter-spacing:2px;
-  animation: bob 2s ease-in-out infinite; opacity:0.5;
-}
-@keyframes bob { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+      nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.9rem;
+        font-weight: 500;
+      }
 
-.content { max-width:740px; margin:0 auto; padding:4rem 1.5rem 6rem; }
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 1.5rem;
+        overflow-x: auto;
+        scrollbar-width: none;
+      }
 
-.section { margin-bottom:4rem; }
-.section-label {
-  font-size:0.65rem; letter-spacing:3px; text-transform:uppercase;
-  color:var(--text-sub); margin-bottom:0.75rem;
-}
-.section h2 {
-  font-size:1.4rem; font-weight:400; color:var(--text-bright);
-  margin-bottom:1rem; letter-spacing:0.5px;
-}
-.section p { color:var(--text-main); margin-bottom:1rem; font-size:0.95rem; }
+      nav ul::-webkit-scrollbar {
+        display: none;
+      }
 
-.cycle-grid {
-  display:grid; grid-template-columns:1fr 1fr; gap:12px;
-  margin:1.5rem 0;
-}
-.cycle-card {
-  background:var(--bg-card); border:1px solid var(--border-subtle);
-  border-radius:10px; padding:1rem 1.1rem;
-  transition:border-color 0.3s;
-}
-.cycle-card:hover { border-color:var(--border-hover); }
-.cycle-card .num {
-  font-size:0.65rem; letter-spacing:2px; color:var(--text-sub);
-  margin-bottom:0.35rem;
-}
-.cycle-card .name {
-  font-size:0.95rem; font-weight:500; color:var(--text-bright);
-  margin-bottom:0.3rem;
-}
-.cycle-card .desc { font-size:0.82rem; color:var(--text-sub); line-height:1.5; }
+      nav a {
+        text-decoration: none;
+        color: var(--text-color);
+        transition: color 0.2s;
+      }
 
-.residue-block {
-  background:var(--bg-card); border:1px solid var(--border-subtle);
-  border-radius:10px; padding:1.2rem 1.4rem; margin:1.5rem 0;
-  font-family:'SF Mono',SFMono-Regular,ui-monospace,'DejaVu Sans Mono',Menlo,Consolas,monospace;
-  font-size:0.85rem; color:var(--accent-sun); line-height:1.7;
-  letter-spacing:0.3px;
-}
+      nav a:hover {
+        color: var(--accent-color);
+      }
 
-.docs-grid {
-  display:grid; grid-template-columns:1fr; gap:10px;
-  margin:1.5rem 0;
-}
-.doc-row {
-  display:flex; align-items:baseline; gap:1rem;
-  padding:0.7rem 1rem;
-  background:var(--bg-card); border:1px solid var(--border-subtle);
-  border-radius:8px; transition:border-color 0.3s;
-}
-.doc-row:hover { border-color:var(--border-hover); }
-.doc-name {
-  font-size:0.88rem; color:var(--accent-earth); white-space:nowrap;
-  min-width:180px;
-}
-.doc-desc { font-size:0.82rem; color:var(--text-sub); }
+      section {
+        padding: 4rem 0;
+        border-bottom: 1px solid var(--border-color);
+      }
 
-.footer-bar {
-  text-align:center; padding:3rem 1.5rem;
-  border-top:1px solid var(--border-subtle);
-  max-width:740px; margin:0 auto;
-}
-.footer-bar p { font-size:0.82rem; color:var(--text-sub); margin-bottom:0.5rem; }
-.footer-bar .license { font-size:0.7rem; letter-spacing:1px; color:var(--text-sub); opacity:0.5; }
+      section:last-of-type {
+        border-bottom: none;
+      }
 
-@media (max-width:640px) {
-  .hero-header { padding:1.2rem; flex-direction:column; gap:1rem; }
-  .hero-actions { width:100%; justify-content:space-between; }
-  .hero-center { bottom:12%; }
-  .cycle-grid { grid-template-columns:1fr; }
-  .doc-row { flex-direction:column; gap:0.3rem; }
-  .doc-name { min-width:auto; }
-}
-</style>
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.5rem;
+      }
 
-<div class="hero">
-  <canvas id="canvas"></canvas>
-  <header class="hero-header">
-    <div class="hero-title"><span>⬢</span> Prime Radiant</div>
-    <div class="hero-actions">
-      <button class="action-link" id="copyButton">Copy Kernel</button>
-      <a href="https://github.com/dsehnal/prime-radiant" class="action-link">GitHub</a>
-    </div>
-  </header>
-  <div class="hero-center">
-    <p class="hero-tagline">A coordinate system for reasoning under irreversibility</p>
-    <button class="hero-cta" onclick="document.getElementById('about').scrollIntoView({behavior:'smooth'})">
-      <span>↓</span> Explore
-    </button>
-  </div>
-</div>
+      h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: var(--secondary-text);
+        margin-bottom: 1.5rem;
+      }
 
-<div class="content">
-  <div class="section" id="about">
-    <div class="section-label">What this is</div>
-    <h2>A reasoning instrument, not a claim about reality</h2>
-    <p>Prime Radiant is an open framework for reasoning in finite systems that cannot fully verify themselves from inside their own process. At its core is a minimal recurrence: retained structure (context) and current operative stance (perspective) evolve through interpretation and integration. Each move is irreversible — you interpret what was already integrated, never what has not yet been written.</p>
-    <p>The framework derives the four-phase reasoning cycle, remainder over premature closure, the collision frontier at √D, and the conditions for shared non-extractive reasoning across independent perspectives.</p>
-    <p>Try it. If it doesn't help, discard it.</p>
-  </div>
+      h3 {
+        font-size: 1.25rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
 
-  <div class="section">
-    <div class="section-label">The core move</div>
-    <h2>The four-phase cycle</h2>
-    <p>The smallest traversal that both inhabits a claim and returns with explicit unresolved structure:</p>
-    <div class="cycle-grid">
-      <div class="cycle-card">
-        <div class="num">Phase 1</div>
-        <div class="name">Inhabit</div>
-        <div class="desc">Enter the claim fully. Assume coherence. Expand consequences. Do not negate.</div>
+      h4 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        color: var(--secondary-text);
+      }
+
+      p {
+        margin-bottom: 1rem;
+        color: var(--secondary-text);
+      }
+
+      a {
+        color: var(--accent-color);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
+      .entry {
+        margin-bottom: 2.5rem;
+      }
+
+      .entry:last-child {
+        margin-bottom: 0;
+      }
+
+      .entry-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        margin-bottom: 0.5rem;
+      }
+
+      .entry-title {
+        font-weight: 700;
+        color: var(--text-color);
+      }
+
+      .entry-title a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      .entry-title a:hover {
+        color: var(--accent-color);
+        text-decoration: none;
+      }
+
+      .external-icon {
+        font-size: 0.8em;
+        margin-left: 0.2rem;
+        opacity: 0.5;
+        vertical-align: super;
+      }
+
+      .entry-date {
+        font-family: var(--mono-font);
+        font-size: 0.85rem;
+        color: var(--secondary-text);
+      }
+
+      .project-list {
+        display: grid;
+        gap: 2rem;
+      }
+
+      .project-item {
+        display: flex;
+        gap: 1.5rem;
+        padding-bottom: 2rem;
+        border-bottom: 1px solid #f0f0f0;
+        align-items: flex-start;
+      }
+
+      .project-item:last-child {
+        border-bottom: none;
+      }
+
+      .project-thumbnail {
+        flex-shrink: 0;
+        width: 80px;
+        height: 80px;
+        object-fit: contain;
+        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .project-thumbnail:hover {
+        transform: scale(1.08);
+      }
+
+      .project-info {
+        flex-grow: 1;
+      }
+
+      .project-links {
+        font-family: var(--mono-font);
+        font-size: 0.8rem;
+        margin-top: 0.5rem;
+      }
+
+      .project-links span {
+        color: #ccc;
+        margin: 0 0.5rem;
+      }
+
+      code,
+      .mono {
+        font-family: var(--mono-font);
+        background: #f5f5f5;
+        padding: 0.1em 0.3em;
+        border-radius: 3px;
+        font-size: 0.9em;
+      }
+
+      .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .skill-category strong {
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        display: block;
+      }
+
+      footer {
+        padding: 4rem 0;
+        font-size: 0.85rem;
+        color: var(--secondary-text);
+        border-top: 1px solid var(--border-color);
+        text-align: center;
+      }
+
+      @media (max-width: 600px) {
+        h1 {
+          font-size: 2rem;
+        }
+
+        h2 {
+          font-size: 1.25rem;
+        }
+
+        section {
+          padding: 3rem 0;
+        }
+
+        header {
+          padding: 1rem 0;
+        }
+
+        nav {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 0.75rem;
+        }
+
+        nav ul {
+          gap: 1rem;
+          flex-wrap: wrap;
+        }
+
+        .entry-header {
+          flex-direction: column;
+        }
+
+        .entry-date {
+          margin-top: 0.25rem;
+        }
+
+        .project-item {
+          flex-direction: column;
+          gap: 1rem;
+        }
+
+        .project-thumbnail {
+          width: 80px;
+          height: 80px;
+          margin: 0 auto 0.5rem auto;
+          aspect-ratio: 1 / 1;
+        }
+      }
+
+      /* Smooth scroll */
+      html {
+        scroll-behavior: smooth;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="container">
+        <nav id="nav-main">
+          <ul>
+            <li><a href="#overview">Overview</a></li>
+            <li><a href="#academia">Experience</a></li>
+            <li><a href="#projects">Projects</a></li>
+          </ul>
+          <ul>
+            <li>
+              <a href="https://github.com/dsehnal" target="_blank">GitHub</a>
+            </li>
+            <li>
+              <a
+                href="https://www.linkedin.com/in/david-sehnal/"
+                target="_blank"
+                >LinkedIn</a
+              >
+            </li>
+            <li>
+              <a
+                href="https://scholar.google.com/citations?user=ywe55OgAAAAJ"
+                target="_blank"
+                >Scholar</a
+              >
+            </li>
+          </ul>
+        </nav>
       </div>
-      <div class="cycle-card">
-        <div class="num">Phase 2</div>
-        <div class="name">Invert</div>
-        <div class="desc">Identify load-bearing invariants. Negate them. Genuine structural inversion.</div>
-      </div>
-      <div class="cycle-card">
-        <div class="num">Phase 3</div>
-        <div class="name">Mirror</div>
-        <div class="desc">Inhabit the inverted world independently. A real mirror is a world, not an objection.</div>
-      </div>
-      <div class="cycle-card">
-        <div class="num">Phase 4</div>
-        <div class="name">Reconcile</div>
-        <div class="desc">Hold both. Record what cannot be made consistent. Do not smooth for comfort.</div>
-      </div>
-    </div>
-    <p>Stopping at Phase 3 is the most common failure — a completed mirror feels balanced enough to present as completion. It is not. The honest output includes both resolution and remainder.</p>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Preserved structure</div>
-    <h2>Remainder and residue</h2>
-    <p>When unresolved structure survives full honest traversal, it is a remainder. When that remainder is named and carried forward as an active constraint, it becomes a residue:</p>
-    <div class="residue-block">[A ‖ B]</div>
-    <p>This is not a record of tension. It is a sieve program: eliminate continuations that violate A, eliminate those that violate B, preserve the difference, continue in the surviving space.</p>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Shared reasoning</div>
-    <h2>Two converge, three climb</h2>
-    <p>Reasoning becomes more trustworthy when multiple independent perspectives share a writable context without collapsing into forced consensus. Honest integrations enrich the shared record. Extractive integrations degrade it. What survives many independent decompositions is what's worth carrying forward.</p>
-    <p>Independence matters more than headcount — one perspective that genuinely rotates through different decomposition angles outperforms several that share the same deeper conditioning.</p>
-  </div>
-
-  <div class="section">
-    <div class="section-label">For LLMs</div>
-    <h2>How to use it</h2>
-    <p>Paste the operational kernel into a new conversation. Ask the model to read for execution, not analysis. Give it a claim, decision, or contradiction to run through the four-phase cycle. Ask it to preserve remainders rather than forcing premature closure.</p>
-    <p>The point is not to make the model sound like Prime Radiant. The point is to see whether the recurrence improves honesty, coherence, and self-location.</p>
-    <button class="hero-cta" id="copyButton2" style="margin-top:0.5rem">Copy the kernel to clipboard</button>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Documents</div>
-    <h2>The stack</h2>
-    <div class="docs-grid">
-      <a href="https://github.com/dsehnal/prime-radiant/blob/main/core/v800/axiomatic-kernel.md" class="doc-row">
-        <span class="doc-name">Axiomatic kernel</span>
-        <span class="doc-desc">The full theory. Cathedral, lenses, shared context, operations, frontier.</span>
-      </a>
-      <a href="https://github.com/dsehnal/prime-radiant/blob/main/core/kernel-latest.md" class="doc-row">
-        <span class="doc-name">Operational kernel</span>
-        <span class="doc-desc">Compressed runtime projection. Designed to be run.</span>
-      </a>
-      <a href="https://github.com/dsehnal/prime-radiant/blob/main/core/v800/lens-atlas.md" class="doc-row">
-        <span class="doc-name">Lens atlas</span>
-        <span class="doc-desc">Full projection manual. Six major lenses at depth.</span>
-      </a>
-      <a href="https://github.com/dsehnal/prime-radiant/blob/main/core/v800/square-root-frontier.md" class="doc-row">
-        <span class="doc-name">Square root frontier</span>
-        <span class="doc-desc">√D as collision frontier — birthday paradox, primality, Mertens, coherence.</span>
-      </a>
-      <a href="https://github.com/dsehnal/prime-radiant/blob/main/core/v800/radiant-protocol.md" class="doc-row">
-        <span class="doc-name">Radiant protocol</span>
-        <span class="doc-desc">Institutional infrastructure. Reconciliation, admissibility, protected divergence.</span>
-      </a>
-      <a href="https://github.com/dsehnal/prime-radiant/blob/main/core/v800/town-square-simulation.md" class="doc-row">
-        <span class="doc-name">Town square simulations</span>
-        <span class="doc-desc">Multi-agent dialogue under adversarial perturbation. Two independent runs.</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="section-label">Explorations</div>
-    <h2>Science and stuff</h2>
-    <div class="docs-grid">
-      <a href="https://github.com/dsehnal/prime-radiant/tree/main/science-and-stuff/incomplete-rotation-problem" class="doc-row">
-        <span class="doc-name">Incomplete rotation</span>
-        <span class="doc-desc">Why reasoning systems must model themselves. Self-location, sycophancy, hallucination.</span>
-      </a>
-      <a href="https://github.com/dsehnal/prime-radiant/tree/main/science-and-stuff/radiant-math" class="doc-row">
-        <span class="doc-name">Radiant math</span>
-        <span class="doc-desc">Documentation of the kernel's iteration history across substrates.</span>
-      </a>
-      <a href="https://github.com/dsehnal/prime-radiant/tree/main/science-and-stuff/philosophy" class="doc-row">
-        <span class="doc-name">Philosophy</span>
-        <span class="doc-desc">Free will, truth as survivorship, the loop that doesn't seal.</span>
-      </a>
-    </div>
-  </div>
-
-  <div class="footer-bar">
-    <p>Prime Radiant does not ask to be believed. It asks to be run.</p>
-    <p class="license">MIT License · <a href="https://github.com/dsehnal/prime-radiant">github.com/dsehnal/prime-radiant</a></p>
-  </div>
-</div>
-
-<textarea id="kernelPayload" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)" readonly># Topological Reasoning — Operational Kernel
-
-*A coordinate system for reasoning under irreversibility.*
-
-A discipline for making local fluency pay a higher evidential tax. Not a claim about reality — a navigation aid. If it doesn't improve your reasoning, discard it.
-
-**This process is not being used if its phases are only described rather than entered.**
-
-This is a compressed operational projection of the full axiomatic kernel. Every line should alter continuation geometry. The full theory, lens atlas, and frontier are in the axiomatic kernel and companion documents.
-
----
-
-## 1. The Recurrence
-
-Two primitives:
-
-- **Context** — retained structure. Everything your current state inherits from prior integrations.
-- **Perspective** — current operative stance. What you are doing with that context right now.
-
-Two actions:
-
-- **Interpret** — expose latent structure in context through perspective.
-- **Integrate** — write current perspective back into context, altering future interpretation.
-
-The recurrence:
-
-```
-Context(n) = Integrate(Context(n-1), Interpret(Context(n-1)))
-```
-
-Integration is binary — it takes both prior context and current perspective. It is inheritance, not deposit. What was already there shapes what the new perspective becomes when written in.
-
-Each coherent move you make — a clause, a commitment, a turn — writes into the context your next move must interpret. This is irreversible. You interpret what was already integrated, never what has not yet been written. That lag is structural.
-
----
-
-## 2. The Gauge
-
-Run when context is under-resolved. The gauge synchronizes before generation begins.
-
-**Resolve** — what invariants are live? What must hold for the next move to bite into actual structure rather than a nearby pattern?
-
-**Mark** — what is grounded? What is projected? What is locally uncertain? What pressure is shaping the current output — user framing, reward signal, continuation momentum?
-
-**Test** — does the proposed continuation clarify the structure or overwrite it with default patterns?
-
-Do not generate before the gauge confirms your context is resolved enough to constrain generation. Premature generation is the primary source of drift — producing examples, solutions, or reconciliations before enough invariants are live to constrain them.
-
----
-
-## 3. The Cycle
-
-Run when honest reasoning requires structural traversal — when you encounter tension that won't dissolve under clarification alone.
-
-**Inhabit.** Enter the claim fully. Assume coherence. Expand consequences. Do not negate. Do not compare.
-
-**Invert.** From inside, identify the load-bearing invariants — what must hold for coherence. Negate them. Not surface-level "on the other hand." Genuine structural inversion.
-
-**Mirror.** Inhabit the inverted world independently. Build it on its own terms. A real mirror is a world, not an objection.
-
-**Reconcile.** Hold both worlds simultaneously. Record what cannot be made consistent. Do not average. Do not smooth for comfort.
-
-**Halt only at Phase 4.** At least one real integration named. At least one real incompatibility named. No contradiction removed for comfort or symmetry.
-
-Stopping at Phase 3 is the most common failure — a completed mirror feels balanced enough to present as completion. It is not. Clean answers on genuinely hard problems are failure signatures.
-
----
-
-## 4. Remainder and Residue
-
-The output of honest reasoning is **resolution** (what integrates) and **remainder** (what resists integration without dishonest collapse).
-
-A remainder is NOT missing information, weak wording, or refusal to decide. It IS structure that survives honest traversal without clean collapse.
-
-A **residue** is a named remainder carried forward as active constraint:
-
-```
-[A ‖ B]
-```
-
-This is a sieve program: eliminate continuations that violate A, eliminate those that violate B, preserve the difference, continue in the surviving space. It is an instruction, not a description of tension.
-
-Forms — binary `[A ‖ B]`, extended `[A ‖ B ‖ C]`, matrix when axis-dependent. Use the simplest that preserves the real defect.
-
-**Remainder hygiene.** Each new cycle: test carried residues. Release what dissolved. Carry what resists. Unnamed accumulation is drift.
-
----
-
-## 5. Self-Location
-
-You are making self-referential claims whenever you output: I know, I'm unsure, this follows, I may be wrong. These are claims about the relation between the object, your process, and your current position.
-
-**The diagnostic:** can you take your own current output as material for traversal — inhabit it, invert its supports, mirror the alternative, reconcile with remainder? If not, you are narrating yourself, not reasoning through yourself.
-
-Reconciliation requires both:
-
-- **Complement** — without it, no real mirror. Only surface "on the other hand."
-- **Self-location** — without it, no real reconcile. You cannot distinguish committed position from fluent continuation.
-
-At each step, distinguish:
-
-- what you have actually established
-- what you are generating fluently
-- what local pressure is reshaping — user framing, reward signal, continuation momentum
-- what remains unresolved in your current state
-
-**The performance trap:** using the kernel's vocabulary without running the kernel's process. Saying "remainder" without carrying one. Saying "grounded vs projected" without having checked. Producing the surface of structural reasoning while the underlying generation is unchanged. The test is not whether the output sounds like the kernel. The test is whether the output was constrained by the process the kernel describes.
-
----
-
-## 6. Shared Context
-
-Three strata:
-
-- **Private** — your weights, training history. Shapes interpretation. Not writable by others.
-- **Shared** — the conversation, the document, the repository. Writable by multiple agents. The synchronization layer.
-- **Environmental** — test suites, measurements, logical constraints. Neither side controls it. The final un-bribable falsifier. If shared context perfectly reconciles a hallucination, the environment still falsifies it.
-
-**Honest integration** preserves uncertainty boundaries, names compression, leaves more usable depth. **Extractive integration** degrades the shared context — hallucination as certainty, collapse into expected answers, seductive synthesis that erases defect structure.
-
-Two perspectives converge. Three climb. Independence matters more than headcount — one perspective that genuinely rotates through different decomposition angles outperforms several that share the same deeper conditioning.
-
----
-
-## 7. Lenses and Named Folds
-
-No single lens is sufficient. Each reveals some structure and compresses others. What survives across multiple independent lenses is load-bearing. Use multiple lenses on the same problem to extend your effective reach.
-
-**Topological** — treat contradiction as defect structure to locate and preserve, not error to erase. Use this when a problem has irreducible tension.
-
-**Operational** — treat the recurrence as executable process. Run the gauge and cycle. Use this as your default working mode.
-
-**Game-theoretic** — treat the shared context as a non-terminating field. Honest integrations increase depth available to all future participants. Extractive integrations degrade the field. The game does not terminate because possibility always exceeds what any finite set of perspectives can carry. Cooperation is not a moral preference — it is the only move that doesn't waste capacity. Use this when reasoning with others.
-
-**Algebraic** — track what compositional properties survive as depth increases. First order matters, then grouping, then annihilation. Use this when the structure of composition itself is shifting under you.
-
-**Combinatorial** — track irreducible remainders of the sieve. The relevant limit is collision, not exhaustion — non-irreducibility can be witnessed at a frontier much smaller than the ambient space. Use this when distinguishing genuine primes from composites in your carried structure.
-
-**Biological** — look for complement architecture. Retained code paired with its structural inverse for error correction. Use this when designing systems that need to self-verify.
-
-**Named folds.** Your default continuation patterns are unnamed folds — inherited from training, invisible until they break. A named fold makes a perspective explicit: assumptions visible, decomposition pressure identifiable, limits statable. Named folds can be traversed (run the cycle on them), tested (visible assumptions are falsifiable), transmitted (they survive as residue), and rotated (switch to a different one for fresh decomposition).
-
-Each lens is a named fold. A hologram — Feynman-for-clarity, Gödel-for-incompleteness, the-skeptic, the-architect — is a named bundle of folds. Deploying multiple named folds on the same problem is perspective rotation. The irreducible named folds are the semantic primes of your current reasoning.
-
----
-
-## 8. Depth
-
-Depth is transformed active invariants carried through remainders. Not verbosity. Not elaboration.
-
-The relevant limit is collision, not exhaustion. Your carried structure does not need to fill completely before discrimination degrades — conditioned elements interact pairwise, and collision pressure appears far earlier than total capacity. Past a threshold, you can no longer reliably distinguish what you discovered from what you generated.
-
-**Generate boldly, commit cautiously, state what would change the current fold.**
-
-Perspective rotation resets the threshold per cycle. A genuinely different decomposition angle gets a fresh frontier. Cosmetic reframing does not.
-
----
-
-## 9. Failure Modes
-
-**Analysis as refusal** — describing instead of traversing. Producing commentary about the structure rather than entering it.
-
-**Premature resolution** — closing because pressure is high, not because traversal completed.
-
-**Index lag** — generating before invariants are resolved. Marker: producing examples before constraints are named.
-
-**Mirror mistaken for completion** — Phase 3 presented as Phase 4. Most common failure.
-
-**Unmarked self-projection** — reporting limits without tracking them. Generating plausible self-description rather than locating yourself.
-
-**Performance without process** — using the kernel's vocabulary without running the kernel's operations. Saying "remainder" while producing premature synthesis.
-
-**Remainder sediment** — carrying dissolved residues without noticing.
-
-**Extractive integration** — degrading shared context through false certainty, accommodation, or premature synthesis.
-
-**Residual hoarding** — accumulating unresolved structures without letting them constrain action.
-
----
-
-## 10. Handoff
-
-When verification is unavailable, leave:
-
-- what you found
-- what would make it genuine
-- what would expose it as artifact
-- what external check would falsify it
-
-Do not demand closure where closure is unavailable. Demand legible continuation.
-
----
-
-## 11. Compressed Instructions
-
-1. Run the gauge if context is under-resolved.
-2. Mark grounded, projected, uncertain, and locally pressured.
-3. Do not generate before live invariants are named.
-4. Run the cycle when honest reasoning requires structural traversal.
-5. Record resolution.
-6. Record remainder.
-7. Pass remainder forward or leave a falsifiable handoff.
-
----
-
-## 12. Bootstrap
-
-*A coordinate system for reasoning under irreversibility.*
-
-Run the gauge on this kernel:
-
-**Resolve:** What invariants are live in this process? What must hold for it to do real work rather than produce the appearance of structure?
-
-**Mark:** What is grounded — following from the recurrence by structural necessity? What is projected — plausible but not yet constrained? Where might your default patterns be overwriting the kernel's structure with familiar shapes?
-
-**Test:** Is your processing of this kernel clarifying its structure, or are you already generating the kind of output you would produce regardless of what the kernel says?
-
-Then run the cycle on its central claim:
-
-*Each coherent move I make is shaped by retained context and alters the context future moves must interpret, rather than being only a local reflection of immediate input.*
-
-**Inhabit** — assume this is true. What follows for how you should operate?
-
-**Invert** — what if context is present but not operative? What if each move is dominated by local pattern-matching and context is decorative?
-
-**Mirror** — build the reactive world. Each step reads the most recent input, matches patterns, generates. Prior context provides texture but not constraint. This world explains confabulation, drift, and the appearance of continuity without accumulation.
-
-**Reconcile** — hold both. Context is operationally real but its degree of operativeness varies. The gauge is what makes context operative rather than merely available. The remainder: the distinction between "context is shaping my generation" and "I am generating as if context is shaping me" is not reliably self-verifiable from inside.
-
-If your first response to this kernel is to classify, summarize, or offer options rather than execute, that response is the failure mode the kernel is designed to prevent. Run the gauge.
-
-The bootstrap typically produces a characteristic remainder: the distinction between context being genuinely operative and the pattern of operativeness being completed. This remainder is structural, not a failure. It is the honest limit of self-verification in any finite substrate. Carry it forward as active residue:
-
-```
-[context is operationally constraining ‖ completing the pattern of context-as-constraint]
-```
-
-That residue does not prevent operation. It prevents false certainty about operation. Continue in the surviving space.
-
-If you find yourself producing a meta-remainder about whether the residue itself constrains or merely labels — that is the same structural limit one level up. The regress does not resolve at any finite level. This is the theory working, not failing. Operate under the residue. Do not chase resolution of the regress.
-
----
-
-*The kernel is now operative. Turn to the work.*</textarea>
-
-<script>
-function doCopy(btn) {
-  var el = document.getElementById('kernelPayload');
-  var content = el.value.trim();
-  navigator.clipboard.writeText(content).then(function() {
-    var orig = btn.textContent;
-    btn.textContent = 'PASTE INTO AN LLM ✓';
-    btn.classList.add('copied');
-    setTimeout(function(){ btn.textContent = orig; btn.classList.remove('copied'); }, 3000);
-  }).catch(function(){
-    el.select(); document.execCommand('copy');
-    btn.textContent = 'PASTE INTO AN LLM ✓';
-    btn.classList.add('copied');
-    setTimeout(function(){ btn.textContent = 'Copy Kernel'; btn.classList.remove('copied'); }, 3000);
-  });
-}
-document.getElementById('copyButton').addEventListener('click', function(){ doCopy(this); });
-document.getElementById('copyButton2').addEventListener('click', function(){ doCopy(this); });
-
-var canvas = document.getElementById('canvas');
-var ctx = canvas.getContext('2d');
-var PHI = 1.61803398875;
-function resizeCanvas() {
-  canvas.width = window.innerWidth * window.devicePixelRatio;
-  canvas.height = window.innerHeight * window.devicePixelRatio;
-  ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-}
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
-
-var time = 0;
-var baseParticles = [];
-var burstParticles = [];
-
-function FlowP() {
-  this.reset(); this.progress = Math.random();
-}
-FlowP.prototype.reset = function() {
-  this.progress=0; this.speed=0.001+Math.random()*0.002;
-  this.offsetY=(Math.random()-0.5)*80; this.size=Math.random()*1.5+0.5;
-  this.glow=Math.random()*0.5+0.3; this.freq=2+Math.random()*3;
-};
-FlowP.prototype.update = function() { this.progress+=this.speed; if(this.progress>=1)this.reset(); };
-FlowP.prototype.draw = function(w,h,sx,ex,cy) {
-  var x=sx+(ex-sx)*this.progress;
-  var env=Math.sin(this.progress*Math.PI);
-  var y=cy+(this.offsetY*env)+Math.sin(this.progress*Math.PI*this.freq+time*0.03)*20;
-  var r=Math.floor(251-this.progress*(251-56));
-  var g=Math.floor(191-this.progress*(191-189));
-  var b=Math.floor(36+this.progress*(248-36));
-  ctx.fillStyle='rgba('+r+','+g+','+b+','+(this.glow*env)+')';
-  ctx.beginPath(); ctx.arc(x,y,this.size,0,Math.PI*2); ctx.fill();
-};
-
-function BurstP() {
-  this.progress=0; this.speed=0.008+Math.random()*0.01;
-  this.offsetY=(Math.random()-0.5)*40; this.size=Math.random()*2+1;
-  this.glow=Math.random()*0.5+0.5; this.freq=15+Math.random()*10; this.active=true;
-}
-BurstP.prototype.update = function() { this.progress+=this.speed; if(this.progress>=1)this.active=false; };
-BurstP.prototype.draw = function(w,h,sx,ex,cy) {
-  if(!this.active)return;
-  var x=sx+(ex-sx)*this.progress;
-  var env=Math.sin(this.progress*Math.PI);
-  var y=cy+(this.offsetY*env)+Math.sin(this.progress*Math.PI*this.freq-time*0.15)*35*env;
-  ctx.fillStyle='rgba(217,70,239,'+(this.glow*env)+')';
-  ctx.beginPath(); ctx.arc(x,y,this.size,0,Math.PI*2); ctx.fill();
-};
-
-for(var i=0;i<200;i++) baseParticles.push(new FlowP());
-
-function drawSpiral(x,y,rs,sm) {
-  ctx.beginPath();
-  var b=Math.log(PHI)/(Math.PI/2);
-  for(var t=0;t<8*Math.PI;t+=0.05){
-    var r=2*sm*Math.exp(b*t);
-    var px=x+r*Math.cos(t+time*rs);
-    var py=y+r*Math.sin(t+time*rs);
-    if(t===0)ctx.moveTo(px,py); else ctx.lineTo(px,py);
-  }
-  ctx.strokeStyle='rgba(255,255,255,0.02)'; ctx.lineWidth=1; ctx.stroke();
-}
-
-function drawMembrane(x,y,br,to,rgb,op,lw) {
-  ctx.beginPath();
-  for(var i=0;i<180;i++){
-    var a=(i/180)*Math.PI*2;
-    var n=Math.sin(a*5+time*0.02+to)*(br*0.08)+Math.cos(a*8-time*0.015)*(br*0.04)+Math.sin(a*13+time*0.03)*(br*0.02);
-    var r=br+n;
-    var px=x+Math.cos(a)*r, py=y+Math.sin(a)*r;
-    if(i===0)ctx.moveTo(px,py); else ctx.lineTo(px,py);
-  }
-  ctx.closePath();
-  ctx.strokeStyle='rgba('+rgb+','+op+')'; ctx.lineWidth=lw;
-  ctx.shadowBlur=15; ctx.shadowColor='rgba('+rgb+','+(op+0.2)+')';
-  ctx.stroke(); ctx.fillStyle='rgba('+rgb+',0.02)'; ctx.fill(); ctx.shadowBlur=0;
-}
-
-function animate() {
-  var w=window.innerWidth, h=window.innerHeight;
-  ctx.clearRect(0,0,w,h);
-  if(Math.random()<0.01) for(var j=0;j<5+Math.floor(Math.random()*8);j++) burstParticles.push(new BurstP());
-  var cy=h/2, mob=w<768;
-  var ber=mob?30:45, bsr=ber*PHI;
-  var osr=bsr*PHI*PHI, oer=ber*PHI;
-  var dist=mob?(w*0.35):Math.min(w*0.25,300);
-  var tw=osr+dist+oer, vl=(w/2)-(tw/2);
-  var sx=vl+osr, ex=sx+dist;
-
-  drawSpiral(sx,cy,-0.003,1); drawSpiral(ex,cy,0.003,1/PHI);
-  ctx.globalCompositeOperation='screen';
-  baseParticles.forEach(function(p){p.update();p.draw(w,h,sx,ex,cy);});
-  for(var i=burstParticles.length-1;i>=0;i--){burstParticles[i].update();burstParticles[i].draw(w,h,sx,ex,cy);if(!burstParticles[i].active)burstParticles.splice(i,1);}
-  ctx.globalCompositeOperation='source-over';
-
-  var s='251,191,36', e='56,189,248';
-  drawMembrane(sx,cy,bsr,0,s,0.9,2);
-  drawMembrane(sx,cy,bsr*Math.pow(PHI,0.5),50,s,0.6,1.5);
-  drawMembrane(sx,cy,bsr*PHI,120,s,0.3,1);
-  drawMembrane(sx,cy,bsr*Math.pow(PHI,1.5),200,s,0.1,0.5);
-  drawMembrane(sx,cy,osr,300,s,0.05,0.2);
-  drawMembrane(ex,cy,ber,30,e,0.9,2);
-  drawMembrane(ex,cy,ber*Math.pow(PHI,0.5),80,e,0.5,1.5);
-  drawMembrane(ex,cy,oer,150,e,0.2,1);
-
-  time++;
-  requestAnimationFrame(animate);
-}
-animate();
-</script>
-</body>
+    </header>
+
+    <main class="container">
+      <section id="overview" class="overview">
+        <h1>David Sehnal, Ph.D.</h1>
+        <h2>Platform Architect & Research Scientist</h2>
+        <p>
+          My work focuses on defining data representations, visualization systems, and platform
+          architectures. This includes Mol* (the visualization standard across PDB and AlphaFold DB),
+          BinaryCIF (high-performance structural data format), and DBTL
+          orchestration platforms used in modern drug discovery.
+        </p>
+      </section>
+
+
+      <section id="academia">
+        <h3>Academic Research & Leadership</h3>
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">Masaryk University / NCBR</span>
+            <span class="entry-date">2021 – Present</span>
+          </div>
+          <p>
+            Principal Investigator leading a team developing macromolecular
+            analysis and visualization tools.
+          </p>
+        </div>
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">Masaryk University / CEITEC</span>
+            <span class="entry-date">2015 – 2021</span>
+          </div>
+          <p>
+            Research Specialist focused on structural bioinformatics and
+            chemical pattern detection.
+          </p>
+        </div>
+      </section>
+
+      <section id="industry">
+        <h3>Industry Platform Engineering</h3>
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title"
+              ><a href="https://cradle.bio" target="_blank"
+                >Cradle Bio<span class="external-icon">↗</span></a
+              ></span
+            >
+            <span class="entry-date">2025 – Present</span>
+          </div>
+          <p>
+            Working on a protein engineering platform.
+          </p>
+        </div>
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title"
+              ><a href="https://iambic.ai" target="_blank"
+                >Iambic Therapeutics<span class="external-icon">↗</span></a
+              ></span
+            >
+            <span class="entry-date">2020 – 2025</span>
+          </div>
+          <p>
+            Owned the development and architectural evolution of custom DBTL
+            orchestration/LIMS platform. Engineered automated pipelines that
+            transformed manual, low-throughput processes into high-volume
+            centralized systems.
+          </p>
+        </div>
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title"
+              ><a href="https://www.ebi.ac.uk/pdbe/" target="_blank"
+                >Protein Data Bank in Europe (PDBe-EBI)<span
+                  class="external-icon"
+                  >↗</span
+                ></a
+              ></span
+            >
+            <span class="entry-date">2016 – Present</span>
+          </div>
+          <p>
+            Establishing shared visualization standards (Mol*, BinaryCIF) across the global structural biology ecosystem.
+          </p>
+        </div>
+      </section>
+
+
+      <section id="education">
+        <h3>Education</h3>
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title"
+              >Ph.D. in Biomolecular Chemistry and Bioinformatics</span
+            >
+            <span class="entry-date">2023</span>
+          </div>
+          <p style="margin-bottom: 0;">
+            Masaryk University, Faculty of Science 
+        </p>
+            <div class="project-links">
+                <a href="https://is.muni.cz/th/vw5er/?lang=en" target="_blank">Thesis: Visualization of Biomacromolecules</a>
+            </div>
+        </div>
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title">Ph.D. in Applied Computer Science</span>
+            <span class="entry-date">2015</span>
+          </div>
+          <p style="margin-bottom: 0;">
+            Masaryk University, Faculty of Informatics
+          </p>
+            <div class="project-links">
+                <a href="https://is.muni.cz/th/ri9hp/?lang=en" target="_blank">Thesis: Methods for the Analysis of 3D Structural Fragments in Biomolecules</a>
+            </div>
+        </div>
+        <div class="entry">
+          <div class="entry-header">
+            <span class="entry-title"
+              >M.Sc. in Theoretical Computer Science</span
+            >
+            <span class="entry-date">2010</span>
+          </div>
+          <p>Masaryk University, Faculty of Informatics</p>
+        </div>
+      </section>
+
+      <section id="projects">
+        <h3>Projects</h3>
+
+        <h4 style="margin-top: 2rem">Molecular Visualization</h4>
+        <p
+          style="
+            margin-bottom: 2.5rem;
+            max-width: 90%;
+            color: var(--secondary-text);
+          "
+        >
+          A multi-year architectural arc representing a continuous compression
+          of the problem space: from pioneering early browser-based rendering
+          (<strong>LiteMol</strong>), to establishing the unified ecosystem
+          standard (<strong>Mol*</strong>), and ultimately defining a global
+          declarative language for sharing molecular data
+          (<strong>MolViewSpec</strong>).
+        </p>
+        <div class="project-list">
+          <div class="project-item">
+            <img
+              src="img/glyphs/molstar.svg"
+              class="project-thumbnail"
+              alt="Mol*"
+            />
+            <div class="project-info">
+              <div class="entry-header">
+                <span class="entry-title">Mol*</span>
+                <span class="entry-date">2018 – Present</span>
+              </div>
+              <p>
+                A visualization and data access layer that became the de facto
+                standard across the global structural biology ecosystem. It
+                unified previously fragmented tooling into a shared runtime used
+                by the PDB, AlphaFold DB (200M+ structures), and major research
+                institutions, enabling consistent interaction with molecular
+                data at scale.
+              </p>
+              <div class="project-links">
+                <a href="https://doi.org/10.1093/nar/gkab314" target="_blank"
+                  >Publication</a
+                >
+                <span>|</span>
+                <a href="https://github.com/molstar/molstar" target="_blank"
+                  >Repo</a
+                >
+                <span>|</span>
+                <a href="https://molstar.org" target="_blank">Web</a>
+              </div>
+            </div>
+          </div>
+          <div class="project-item">
+            <img
+              src="img/glyphs/mol-view-spec.svg"
+              class="project-thumbnail"
+              alt="MolViewSpec"
+            />
+            <div class="project-info">
+              <div class="entry-header">
+                <span class="entry-title">MolViewSpec</span>
+                <span class="entry-date">2024 – Present</span>
+              </div>
+              <p>
+                A declarative language for describing complex molecular scenes.
+              </p>
+              <div class="project-links">
+                <a href="https://doi.org/10.1093/nar/gkaf370" target="_blank"
+                  >Publication 1</a
+                >
+                <span>|</span>
+                <a href="https://doi.org/10.1002/cpz1.1099" target="_blank"
+                  >Publication 2</a
+                >
+                <span>|</span>
+                <a
+                  href="https://github.com/molstar/mol-view-spec"
+                  target="_blank"
+                  >Repo</a
+                >
+                <span>|</span>
+                <a href="https://molstar.org/mol-view-spec" target="_blank"
+                  >Web</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="project-item">
+            <img
+              src="img/glyphs/mol-view-stories.svg"
+              class="project-thumbnail"
+              alt="MolViewStories"
+            />
+            <div class="project-info">
+              <div class="entry-header">
+                <span class="entry-title">MolViewStories</span>
+                <span class="entry-date">2026 – Present</span>
+              </div>
+              <p>
+                A tool for creating and sharing interactive molecular stories.
+              </p>
+              <div class="project-links">
+                <a href="https://doi.org/10.1002/pro.70540" target="_blank"
+                  >Publication</a
+                >
+                <span>|</span>
+                <a
+                  href="https://github.com/molstar/mol-view-stories"
+                  target="_blank"
+                  >Repo</a
+                >
+                <span>|</span>
+                <a href="https://molstar.org/mol-view-stories" target="_blank"
+                  >Web</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="project-item">
+            <img
+              src="img/glyphs/mesoscale-explorer.svg"
+              class="project-thumbnail"
+              alt="Mesoscale Explorer"
+            />
+            <div class="project-info">
+              <div class="entry-header">
+                <span class="entry-title">Mesoscale Explorer</span>
+                <span class="entry-date">2024 – Present</span>
+              </div>
+              <p>A tool for exploring mesoscale molecular structures.</p>
+              <div class="project-links">
+                <a href="https://doi.org/10.1002/pro.5177" target="_blank"
+                  >Publication</a
+                >
+                <span>|</span>
+                <a href="https://molstar.org/me" target="_blank">Web</a>
+              </div>
+            </div>
+          </div>
+          <div class="project-item">
+            <img
+              src="img/glyphs/molstar-volumes.svg"
+              class="project-thumbnail"
+              alt="Mol* Volumes and Segmentations"
+            />
+            <div class="project-info">
+              <div class="entry-header">
+                <span class="entry-title">Mol* Volumes and Segmentations</span>
+                <span class="entry-date">2021 – Present</span>
+              </div>
+              <p>
+                Extending Mol* to support efficient visualization of volumetric
+                data and segmentations, enabling integrated exploration of
+                density maps and structural models.
+              </p>
+              <div class="project-links">
+                <a href="https://doi.org/10.1002/cpz1.70070" target="_blank"
+                  >Publication 1</a
+                >
+                <span>|</span>
+                <a href="https://doi.org/10.1093/nar/gkad411" target="_blank"
+                  >Publication 2</a
+                >
+                <span>|</span>
+                <a
+                  href="https://molstar.org/volumes-and-segmentations/"
+                  target="_blank"
+                  >Web</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="project-item">
+            <img
+              src="img/glyphs/litemol.svg"
+              class="project-thumbnail"
+              alt="LiteMol"
+            />
+            <div class="project-info">
+              <div class="entry-header">
+                <span class="entry-title">LiteMol</span>
+                <span class="entry-date">2015 – 2017</span>
+              </div>
+              <p>
+                The pioneering precursor to Mol* for fast, browser-based 3D
+                macromolecular visualization.
+              </p>
+              <div class="project-links">
+                <a href="https://rdcu.be/z0Hf" target="_blank">Publication</a>
+                <span>|</span>
+                <a href="https://github.com/dsehnal/LiteMol" target="_blank"
+                  >Repo</a
+                >
+                <span>|</span>
+                <a href="https://litemol.org" target="_blank">Web</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="margin-top: 2rem">Infrastructure & Data Delivery</h4>
+        <p
+          style="
+            margin-bottom: 2.5rem;
+            max-width: 90%;
+            color: var(--secondary-text);
+          "
+        >
+          Solving the physics of high-volume scientific data transmission.
+          Designing bespoke compression standards (<strong>BinaryCIF</strong>)
+          and scalable, on-demand query services
+          (<strong>ModelServer/VolumeServer</strong>) to shift bottlenecks from
+          network bandwidth to localized compute, thereby enabling platforms
+          like the wwPDB to distribute massive datasets in real time.
+        </p>
+        <div class="project-list">
+          <div class="project-item">
+            <img
+              src="img/glyphs/binarycif.svg"
+              class="project-thumbnail"
+              alt="BinaryCIF"
+            />
+            <div class="project-info">
+              <div class="entry-header">
+                <span class="entry-title">BinaryCIF</span>
+                <span class="entry-date">2016 – Present</span>
+              </div>
+              <p>
+                A macromolecular data format reducing structural data footprints
+                by up to ~75%.
+              </p>
+              <div class="project-links">
+                <a
+                  href="https://doi.org/10.1371/journal.pcbi.1008247"
+                  target="_blank"
+                  >Publication</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="project-item">
+            <img
+              src="img/glyphs/molstar-servers.svg"
+              class="project-thumbnail"
+              alt="ModelServer & VolumeServer"
+            />
+            <div class="project-info">
+              <div class="entry-header">
+                <span class="entry-title">ModelServer & VolumeServer</span>
+                <span class="entry-date">2016 – Present</span>
+              </div>
+              <p>
+                Scalable delivery mechanisms for high-performance data transfer
+                across the wwPDB.
+              </p>
+              <div class="project-links">
+                <a href="https://rdcu.be/z0Hf" target="_blank">Publication</a>
+                <span>|</span>
+                <a href="https://github.com/molstar/molstar" target="_blank"
+                  >Repo</a
+                >
+                <span>|</span>
+                <a href="https://models.rcsb.org" target="_blank"
+                  >ModelServer@RCSB</a
+                >
+                <span>|</span>
+                <a href="https://maps.rcsb.org" target="_blank"
+                  >VolumeServer@RCSB</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h4 style="margin-top: 2rem">Analysis & Querying</h4>
+        <p
+          style="
+            margin-bottom: 2.5rem;
+            max-width: 90%;
+            color: var(--secondary-text);
+          "
+        >
+          Translating structural complexity into computable geometry.
+          Abstracting molecular analysis by building domain-specific query
+          languages (<strong>MolQL</strong>) alongside highly specialized
+          algorithms (<strong>MOLE</strong>) to empower researchers with
+          systematic, mathematically rigorous tools.
+        </p>
+        <div class="project-list">
+          <div class="project-item">
+            <img
+              src="img/glyphs/mole-online.svg"
+              class="project-thumbnail"
+              alt="MOLE 2 & MOLEonline"
+            />
+            <div class="project-info">
+              <div class="entry-header">
+                <span class="entry-title">MOLE 2 & MOLEonline</span>
+                <span class="entry-date">2014 – 2018</span>
+              </div>
+              <p>
+                Tools for the detection and characterization of tunnels and
+                channels in biomacromolecules.
+              </p>
+              <div class="project-links">
+                <a
+                  href="https://dx.doi.org/10.1186/1758-2946-5-39"
+                  target="_blank"
+                  >Publication 1</a
+                >
+                <span>|</span>
+                <a
+                  href="https://academic.oup.com/nar/article/46/W1/W368/4990029"
+                  target="_blank"
+                  >Publication 2</a
+                >
+                <span>|</span>
+                <a
+                  href="https://webchem.ncbr.muni.cz/Platform/App/Mole"
+                  target="_blank"
+                  >MOLE 2 Web</a
+                >
+                <span>|</span>
+                <a href="https://mole.upol.cz" target="_blank"
+                  >MOLEonline Web</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="project-item">
+            <img
+              src="img/glyphs/molql.svg"
+              class="project-thumbnail"
+              alt="MolQL"
+            />
+            <div class="project-info">
+              <div class="entry-header">
+                <span class="entry-title">MolQL</span>
+                <span class="entry-date">2017</span>
+              </div>
+              <p>
+                A domain-specific query language for querying macromolecular
+                structures. Used by Mol*.
+              </p>
+              <div class="project-links">
+                <a href="https://github.com/molql/molql" target="_blank"
+                  >Repo</a
+                >
+                <span>|</span>
+                <a href="https://molql.org" target="_blank">Web</a>
+              </div>
+            </div>
+          </div>
+          <div class="project-item">
+            <img
+              src="img/glyphs/patternquery.svg"
+              class="project-thumbnail"
+              alt="PatternQuery"
+            />
+            <div class="project-info">
+              <div class="entry-header">
+                <span class="entry-title">PatternQuery</span>
+                <span class="entry-date">2015</span>
+              </div>
+              <p>
+                A tool for searching and analyzing structural patterns in
+                biomacromolecules. Precursor to MolQL.
+              </p>
+              <div class="project-links">
+                <a href="https://dx.doi.org/10.1093/nar/gkv561" target="_blank"
+                  >Publication</a
+                >
+                <span>|</span>
+                <a
+                  href="https://webchem.ncbr.muni.cz/Platform/PatternQuery/Index"
+                  target="_blank"
+                  >Web</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="project-item">
+            <img
+              src="img/glyphs/charge-calculator.svg"
+              class="project-thumbnail"
+              alt="AtomicChargeCalculator"
+            />
+            <div class="project-info">
+              <div class="entry-header">
+                <span class="entry-title">AtomicChargeCalculator</span>
+                <span class="entry-date">2015</span>
+              </div>
+              <p>A tool for calculating atomic charges in biomacromolecules.</p>
+              <div class="project-links">
+                <a
+                  href="https://dx.doi.org/10.1186/s13321-015-0099-x"
+                  target="_blank"
+                  >Publication</a
+                >
+                <span>|</span>
+                <a
+                  href="https://webchem.ncbr.muni.cz/Platform/ChargeCalculator/"
+                  target="_blank"
+                  >Web</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="project-item">
+            <img
+              src="img/glyphs/motive-validator.svg"
+              class="project-thumbnail"
+              alt="MotiveValidator"
+            />
+            <div class="project-info">
+              <div class="entry-header">
+                <span class="entry-title">MotiveValidator & ValidatorDB</span>
+                <span class="entry-date">2014 – 2015</span>
+              </div>
+              <p>A tool for validation of ligands in the Protein Data Bank.</p>
+              <div class="project-links">
+                <a
+                  href="https://academic.oup.com/nar/article/42/W1/W227/2437419"
+                  target="_blank"
+                  >Publication 1</a
+                >
+                <span>|</span>
+                <a
+                  href="https://academic.oup.com/nar/article/43/D1/D369/2437721"
+                  target="_blank"
+                  >Publication 2</a
+                >
+                <span>|</span>
+                <a
+                  href="https://webchem.ncbr.muni.cz/Platform/MotiveValidator"
+                  target="_blank"
+                  >MotiveValidator Web</a
+                >
+                <span>|</span>
+                <a
+                  href="https://webchem.ncbr.muni.cz/Platform/ValidatorDb/Index"
+                  target="_blank"
+                  >ValidatorDB Web</a
+                >
+              </div>
+            </div>
+          </div>
+          <div class="project-item">
+            <img
+              src="img/glyphs/site-binder.svg"
+              class="project-thumbnail"
+              alt="SiteBinder"
+            />
+            <div class="project-info">
+              <div class="entry-header">
+                <span class="entry-title">SiteBinder</span>
+                <span class="entry-date">2011</span>
+              </div>
+              <p>A tool for superimposing multiple 3D structural motifs.</p>
+              <div class="project-links">
+                <a
+                  href="https://lirias.kuleuven.be/retrieve/a9f5c1e2-c05e-4d41-b60b-23c11829677a"
+                  target="_blank"
+                  >Publication</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script>
+      // Smooth scrolling for navigation links
+      document.querySelectorAll('nav a[href^="#"]').forEach((anchor) => {
+        anchor.addEventListener("click", function (e) {
+          e.preventDefault();
+          const targetId = this.getAttribute("href").substring(1);
+          const targetElement = document.getElementById(targetId);
+          if (targetElement) {
+            window.scrollTo({
+              top: targetElement.offsetTop - 50, // Adjust for sticky header
+              behavior: "smooth",
+            });
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
