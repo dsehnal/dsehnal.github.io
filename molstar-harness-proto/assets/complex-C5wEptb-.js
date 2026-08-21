@@ -1,0 +1,95 @@
+import{r as e}from"./rolldown-runtime-hePW80VL.js";import{t}from"./react-CwJFpaho.js";import{t as n}from"./jsx-runtime-NZYk81nU.js";import{a as r}from"./presentation-Ilekgn3g.js";import{t as i}from"./complex-7j57NHj9.js";import{i as a}from"./dist-CwNPHXry.js";import{a as o,l as s,s as c}from"./dist-NB6wuoKO.js";import{p as l,t as u}from"./dist-CrPhETbE.js";import{t as d}from"./dist-_P41M4oU.js";import{n as f,r as p,t as m}from"./case-renderer-chooser-CgPPGPCf.js";import{a as h,i as g,n as _,r as v,t as y}from"./P00648-1BRS-chain-A-DqZ6by9y.js";import{n as b,t as x}from"./inspect-panel-DvrNnI2x.js";var S=e(t()),C=`>sp|P11540|BARS_BACAM Barstar OS=Bacillus amyloliquefaciens OX=1390 PE=1 SV=3
+MKKAVINGEQIRSISDLHQTLKKELALPEYYGENLDALWDCLTGWVEYPLVLEWRQFEQS
+KQLTENGAESVLQVFREAKAEGCDITIILS
+`,w=`source_accession	source_position_1based	source_index_0based	source_residue	structure_id	label_asym_id	auth_asym_id	label_seq_id	auth_seq_id	pdb_seq_num	insertion_code	structure_residue	observed	residue_match	status
+P11540	1	0	M	1BRS	D	D						false		outside_construct
+P11540	2	1	K	1BRS	D	D	1	1	1		LYS	true	true	exact
+P11540	3	2	K	1BRS	D	D	2	2	2		LYS	true	true	exact
+P11540	4	3	A	1BRS	D	D	3	3	3		ALA	true	true	exact
+P11540	5	4	V	1BRS	D	D	4	4	4		VAL	true	true	exact
+P11540	6	5	I	1BRS	D	D	5	5	5		ILE	true	true	exact
+P11540	7	6	N	1BRS	D	D	6	6	6		ASN	true	true	exact
+P11540	8	7	G	1BRS	D	D	7	7	7		GLY	true	true	exact
+P11540	9	8	E	1BRS	D	D	8	8	8		GLU	true	true	exact
+P11540	10	9	Q	1BRS	D	D	9	9	9		GLN	true	true	exact
+P11540	11	10	I	1BRS	D	D	10	10	10		ILE	true	true	exact
+P11540	12	11	R	1BRS	D	D	11	11	11		ARG	true	true	exact
+P11540	13	12	S	1BRS	D	D	12	12	12		SER	true	true	exact
+P11540	14	13	I	1BRS	D	D	13	13	13		ILE	true	true	exact
+P11540	15	14	S	1BRS	D	D	14	14	14		SER	true	true	exact
+P11540	16	15	D	1BRS	D	D	15	15	15		ASP	true	true	exact
+P11540	17	16	L	1BRS	D	D	16	16	16		LEU	true	true	exact
+P11540	18	17	H	1BRS	D	D	17	17	17		HIS	true	true	exact
+P11540	19	18	Q	1BRS	D	D	18	18	18		GLN	true	true	exact
+P11540	20	19	T	1BRS	D	D	19	19	19		THR	true	true	exact
+P11540	21	20	L	1BRS	D	D	20	20	20		LEU	true	true	exact
+P11540	22	21	K	1BRS	D	D	21	21	21		LYS	true	true	exact
+P11540	23	22	K	1BRS	D	D	22	22	22		LYS	true	true	exact
+P11540	24	23	E	1BRS	D	D	23	23	23		GLU	true	true	exact
+P11540	25	24	L	1BRS	D	D	24	24	24		LEU	true	true	exact
+P11540	26	25	A	1BRS	D	D	25	25	25		ALA	true	true	exact
+P11540	27	26	L	1BRS	D	D	26	26	26		LEU	true	true	exact
+P11540	28	27	P	1BRS	D	D	27	27	27		PRO	true	true	exact
+P11540	29	28	E	1BRS	D	D	28	28	28		GLU	true	true	exact
+P11540	30	29	Y	1BRS	D	D	29	29	29		TYR	true	true	exact
+P11540	31	30	Y	1BRS	D	D	30	30	30		TYR	true	true	exact
+P11540	32	31	G	1BRS	D	D	31	31	31		GLY	true	true	exact
+P11540	33	32	E	1BRS	D	D	32	32	32		GLU	true	true	exact
+P11540	34	33	N	1BRS	D	D	33	33	33		ASN	true	true	exact
+P11540	35	34	L	1BRS	D	D	34	34	34		LEU	true	true	exact
+P11540	36	35	D	1BRS	D	D	35	35	35		ASP	true	true	exact
+P11540	37	36	A	1BRS	D	D	36	36	36		ALA	true	true	exact
+P11540	38	37	L	1BRS	D	D	37	37	37		LEU	true	true	exact
+P11540	39	38	W	1BRS	D	D	38	38	38		TRP	true	true	exact
+P11540	40	39	D	1BRS	D	D	39	39	39		ASP	true	true	exact
+P11540	41	40	C	1BRS	D	D	40	40	40		ALA	true	false	exact_conflict
+P11540	42	41	L	1BRS	D	D	41	41	41		LEU	true	true	exact
+P11540	43	42	T	1BRS	D	D	42	42	42		THR	true	true	exact
+P11540	44	43	G	1BRS	D	D	43	43	43		GLY	true	true	exact
+P11540	45	44	W	1BRS	D	D	44	44	44		TRP	true	true	exact
+P11540	46	45	V	1BRS	D	D	45	45	45		VAL	true	true	exact
+P11540	47	46	E	1BRS	D	D	46	46	46		GLU	true	true	exact
+P11540	48	47	Y	1BRS	D	D	47	47	47		TYR	true	true	exact
+P11540	49	48	P	1BRS	D	D	48	48	48		PRO	true	true	exact
+P11540	50	49	L	1BRS	D	D	49	49	49		LEU	true	true	exact
+P11540	51	50	V	1BRS	D	D	50	50	50		VAL	true	true	exact
+P11540	52	51	L	1BRS	D	D	51	51	51		LEU	true	true	exact
+P11540	53	52	E	1BRS	D	D	52	52	52		GLU	true	true	exact
+P11540	54	53	W	1BRS	D	D	53	53	53		TRP	true	true	exact
+P11540	55	54	R	1BRS	D	D	54	54	54		ARG	true	true	exact
+P11540	56	55	Q	1BRS	D	D	55	55	55		GLN	true	true	exact
+P11540	57	56	F	1BRS	D	D	56	56	56		PHE	true	true	exact
+P11540	58	57	E	1BRS	D	D	57	57	57		GLU	true	true	exact
+P11540	59	58	Q	1BRS	D	D	58	58	58		GLN	true	true	exact
+P11540	60	59	S	1BRS	D	D	59	59	59		SER	true	true	exact
+P11540	61	60	K	1BRS	D	D	60	60	60		LYS	true	true	exact
+P11540	62	61	Q	1BRS	D	D	61	61	61		GLN	true	true	exact
+P11540	63	62	L	1BRS	D	D	62	62	62		LEU	true	true	exact
+P11540	64	63	T	1BRS	D	D	63	63	63		THR	true	true	exact
+P11540	65	64	E	1BRS	D	D	64		64		GLU	false	true	missing_coordinate
+P11540	66	65	N	1BRS	D	D	65		65		ASN	false	true	missing_coordinate
+P11540	67	66	G	1BRS	D	D	66	66	66		GLY	true	true	exact
+P11540	68	67	A	1BRS	D	D	67	67	67		ALA	true	true	exact
+P11540	69	68	E	1BRS	D	D	68	68	68		GLU	true	true	exact
+P11540	70	69	S	1BRS	D	D	69	69	69		SER	true	true	exact
+P11540	71	70	V	1BRS	D	D	70	70	70		VAL	true	true	exact
+P11540	72	71	L	1BRS	D	D	71	71	71		LEU	true	true	exact
+P11540	73	72	Q	1BRS	D	D	72	72	72		GLN	true	true	exact
+P11540	74	73	V	1BRS	D	D	73	73	73		VAL	true	true	exact
+P11540	75	74	F	1BRS	D	D	74	74	74		PHE	true	true	exact
+P11540	76	75	R	1BRS	D	D	75	75	75		ARG	true	true	exact
+P11540	77	76	E	1BRS	D	D	76	76	76		GLU	true	true	exact
+P11540	78	77	A	1BRS	D	D	77	77	77		ALA	true	true	exact
+P11540	79	78	K	1BRS	D	D	78	78	78		LYS	true	true	exact
+P11540	80	79	A	1BRS	D	D	79	79	79		ALA	true	true	exact
+P11540	81	80	E	1BRS	D	D	80	80	80		GLU	true	true	exact
+P11540	82	81	G	1BRS	D	D	81	81	81		GLY	true	true	exact
+P11540	83	82	C	1BRS	D	D	82	82	82		ALA	true	false	exact_conflict
+P11540	84	83	D	1BRS	D	D	83	83	83		ASP	true	true	exact
+P11540	85	84	I	1BRS	D	D	84	84	84		ILE	true	true	exact
+P11540	86	85	T	1BRS	D	D	85	85	85		THR	true	true	exact
+P11540	87	86	I	1BRS	D	D	86	86	86		ILE	true	true	exact
+P11540	88	87	I	1BRS	D	D	87	87	87		ILE	true	true	exact
+P11540	89	88	L	1BRS	D	D	88	88	88		LEU	true	true	exact
+P11540	90	89	S	1BRS	D	D	89	89	89		SER	true	true	exact
+`,T=n(),E=`complex-sequence`,D=`complex-structure`,O=e=>e.split(/\r?\n/u).slice(1).join(``).trim(),k=[`reference`,`nightingale`],A={reference:[{id:E,type:`seqstar.reference-viewer`,config:{presentation:{defaultTrackAction:{kind:`structure-profile`,icon:`box`,accessibleName:`Show this track in 3D`,tooltip:`Show this track as an annotated 3D structure`}}}}],nightingale:[{id:E,type:`seqstar.nightingale`,config:{presentation:{defaultTrackAction:{label:`Show this track in 3D`,kind:`structure`}}}}]},j=(e,t)=>a({id:`complex`,components:[...A[t],{id:D,type:`seqstar.molstar-mvs`}],plugins:[{id:`complex-mvs`,plugin:`seqstar.complex-mvs`}],synchronization:[{id:`complex-hover`,interaction:`hover`,between:[E,D],unmapped:`clear`},{id:`complex-select`,interaction:`select`,between:[E,D],unmapped:`preserve`}]},{componentFactories:[u({getHost:t=>e.require(t)}),p({getHost:t=>e.require(t)}),d({getHost:t=>e.require(t)})],pluginFactories:[{plugin:`seqstar.complex-mvs`,create:()=>l({sequenceComponent:E,structureComponent:D,barnaseMappingTsv:y,barstarMappingTsv:w,contactsTsv:_,confidenceTsv:h,barnaseResidues:O(v),barstarResidues:O(C),structureUrl:g})}]});function M({initialMode:e,onModeChange:t}){let{status:n}=c(),i=s(E),a=s(D),o=b({sequenceComponent:E,structureComponent:D});return(0,T.jsxs)(`main`,{className:`mx-auto grid max-w-7xl gap-6 px-6 py-8`,"data-testid":`case-complex`,children:[(0,T.jsxs)(`section`,{children:[(0,T.jsx)(`p`,{className:`font-medium text-sky-700 text-sm uppercase tracking-[0.16em]`,children:`Case study`}),(0,T.jsx)(`h1`,{className:`mt-2 font-bold text-3xl text-slate-950`,children:`Barnase–barstar complex`}),(0,T.jsx)(`p`,{className:`mt-3 max-w-4xl text-lg text-slate-600`,children:`An explicit two-polymer assembly: barnase P00648 / chain A and barstar P11540 / chain D. The visible gap separates coordinate spaces and cannot select a fabricated biological position. Hover residues to reflect an exact chain locus; select a contact to focus both named endpoints.`}),(0,T.jsxs)(`p`,{"data-testid":`p50-harness-status`,hidden:!0,children:[`Harness: `,n,` · local 1BRS fixture only`]})]}),(0,T.jsx)(`p`,{className:`rounded border border-amber-300 bg-amber-50 p-3 text-amber-950 text-sm`,"data-testid":`p50-synthetic-label`,children:`Synthetic confidence — deterministic prototype values, not a biological prediction.`}),(0,T.jsx)(m,{descriptor:{caseId:`complex`,modes:k,initialMode:e},modeComponents:A,onModeChange:t,children:(e,t)=>(0,T.jsxs)(`div`,{className:`grid gap-5 xl:grid-cols-2`,children:[(0,T.jsx)(r,{hostRef:i,id:E,title:`Barnase–barstar sequence tracks`,toolbar:t}),(0,T.jsx)(r,{hostRef:a,id:D,kind:`structure`,title:`1BRS annotated assembly`})]})}),(0,T.jsx)(`section`,{"data-testid":`inspect-panel-container`,children:(0,T.jsx)(x,{state:o})})]})}function N(){let e=i.useSearch(),t=i.useNavigate(),n=f(e.renderer,k,`reference`),r=(0,S.useRef)(n).current,a=(0,S.useCallback)(({hosts:e})=>j(e,r),[r]);return(0,T.jsx)(o,{createHarness:a,fallback:(0,T.jsx)(`main`,{className:`p-8`,children:`Starting offline 1BRS complex…`}),children:(0,T.jsx)(M,{initialMode:n,onModeChange:e=>void t({search:{renderer:e}})})})}export{N as component};
