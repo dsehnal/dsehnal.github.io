@@ -3,29 +3,56 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>David Sehnal, Ph.D. | Platform Architect & Research Scientist</title>
+    <title>David Sehnal</title>
     <meta
       name="description"
-      content="Portfolio of David Sehnal, Ph.D., Lead Architect of Mol* and Research Software Engineer specializing in structural biology and high-performance engineering."
+      content="David Sehnal builds software for working with molecular structures: Mol*, MolViewSpec, BinaryCIF and related tools."
+    />
+    <meta property="og:title" content="David Sehnal" />
+    <meta
+      property="og:description"
+      content="Software for working with molecular structures: Mol*, MolViewSpec, BinaryCIF and related tools."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://dsehnal.github.io/" />
+    <meta property="og:image" content="https://dsehnal.github.io/img/projects/molstar.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="color-scheme" content="light dark" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%230044cc'/%3E%3Ctext x='16' y='22' font-family='Helvetica,Arial,sans-serif' font-size='15' font-weight='700' text-anchor='middle' fill='white'%3EDS%3C/text%3E%3C/svg%3E"
     />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..800&display=swap"
       rel="stylesheet"
     />
     <style>
       :root {
-        --bg-color: #ffffff;
-        --text-color: #1a1a1a;
-        --secondary-text: #4a4a4a;
-        --accent-color: #0044cc;
-        --border-color: #e5e5e5;
-        --mono-font: "SF Mono", "Consolas", "Liberation Mono", Menlo, monospace;
-        --sans-font:
-          "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        --bg: #ffffff;
+        --surface: #f6f6f4;
+        --text: #18181b;
+        --muted: #55555c;
+        --faint: #8a8a92;
+        --accent: #0044cc;
+        --border: #e6e6e3;
+        --mono: "SF Mono", ui-monospace, Menlo, Consolas, monospace;
+        --sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
           Helvetica, Arial, sans-serif;
-        --max-width: 800px;
+        --max-width: 880px;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #111113;
+          --surface: #1b1b1e;
+          --text: #ececee;
+          --muted: #a6a6ad;
+          --faint: #74747c;
+          --accent: #7aa2ff;
+          --border: #2a2a2e;
+        }
       }
 
       * {
@@ -34,23 +61,26 @@
         padding: 0;
       }
 
+      html {
+        scroll-behavior: smooth;
+      }
+
       body {
-        font-family: var(--sans-font);
-        background-color: var(--bg-color);
-        color: var(--text-color);
+        font-family: var(--sans);
+        background: var(--bg);
+        color: var(--text);
         line-height: 1.6;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
       }
 
-      header {
-        border-bottom: 1px solid var(--border-color);
-        padding: 1.5rem 0;
-        position: sticky;
-        top: 0;
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(8px);
-        z-index: 100;
+      a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
       }
 
       .container {
@@ -59,10 +89,23 @@
         padding: 0 1.5rem;
       }
 
+      /* Header */
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        background: color-mix(in srgb, var(--bg) 88%, transparent);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid var(--border);
+      }
+
       nav {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        gap: 1rem;
+        height: 3.5rem;
         font-size: 0.9rem;
         font-weight: 500;
       }
@@ -70,28 +113,29 @@
       nav ul {
         list-style: none;
         display: flex;
-        gap: 1.5rem;
-        overflow-x: auto;
-        scrollbar-width: none;
-      }
-
-      nav ul::-webkit-scrollbar {
-        display: none;
+        gap: 1.25rem;
       }
 
       nav a {
-        text-decoration: none;
-        color: var(--text-color);
-        transition: color 0.2s;
+        color: var(--muted);
       }
 
       nav a:hover {
-        color: var(--accent-color);
+        color: var(--text);
+        text-decoration: none;
       }
+
+      nav .home {
+        color: var(--text);
+        font-weight: 700;
+      }
+
+      /* Sections */
 
       section {
         padding: 4rem 0;
-        border-bottom: 1px solid var(--border-color);
+        border-bottom: 1px solid var(--border);
+        scroll-margin-top: 3.5rem;
       }
 
       section:last-of-type {
@@ -99,216 +143,241 @@
       }
 
       h1 {
-        font-size: 2.5rem;
+        font-size: 2.6rem;
         font-weight: 800;
-        letter-spacing: -0.02em;
-        margin-bottom: 0.5rem;
+        letter-spacing: -0.025em;
+        line-height: 1.15;
+        margin-bottom: 1.25rem;
       }
 
       h2 {
-        font-size: 1.5rem;
+        font-size: 0.8rem;
         font-weight: 600;
-        color: var(--secondary-text);
-        margin-bottom: 1.5rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--faint);
+        margin-bottom: 2rem;
       }
 
       h3 {
-        font-size: 1.25rem;
-        font-weight: 600;
-        margin-bottom: 1.5rem;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-      }
-
-      h4 {
         font-size: 1.1rem;
-        font-weight: 600;
-        margin-bottom: 1rem;
-        color: var(--secondary-text);
+        font-weight: 650;
+        margin: 3rem 0 1.25rem;
       }
 
       p {
+        color: var(--muted);
+      }
+
+      .intro p {
+        font-size: 1.15rem;
+        max-width: 40em;
         margin-bottom: 1rem;
-        color: var(--secondary-text);
       }
 
-      a {
-        color: var(--accent-color);
-        text-decoration: none;
+      .intro p strong {
+        color: var(--text);
+        font-weight: 600;
       }
 
-      a:hover {
-        text-decoration: underline;
-      }
+      /* Timeline rows (experience, education, earlier work) */
 
-      .entry {
-        margin-bottom: 2.5rem;
-      }
-
-      .entry:last-child {
-        margin-bottom: 0;
-      }
-
-      .entry-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        margin-bottom: 0.5rem;
-      }
-
-      .entry-title {
-        font-weight: 700;
-        color: var(--text-color);
-      }
-
-      .entry-title a {
-        color: inherit;
-        text-decoration: none;
-      }
-
-      .entry-title a:hover {
-        color: var(--accent-color);
-        text-decoration: none;
-      }
-
-      .external-icon {
-        font-size: 0.8em;
-        margin-left: 0.2rem;
-        opacity: 0.5;
-        vertical-align: super;
-      }
-
-      .entry-date {
-        font-family: var(--mono-font);
-        font-size: 0.85rem;
-        color: var(--secondary-text);
-      }
-
-      .project-list {
+      .rows {
         display: grid;
-        gap: 2rem;
+        gap: 1.75rem;
       }
 
-      .project-item {
-        display: flex;
+      .row {
+        display: grid;
+        grid-template-columns: 8.5rem 1fr;
         gap: 1.5rem;
-        padding-bottom: 2rem;
-        border-bottom: 1px solid #f0f0f0;
-        align-items: flex-start;
       }
 
-      .project-item:last-child {
-        border-bottom: none;
-      }
-
-      .project-thumbnail {
-        flex-shrink: 0;
-        width: 80px;
-        height: 80px;
-        object-fit: contain;
-        transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .project-thumbnail:hover {
-        transform: scale(1.08);
-      }
-
-      .project-info {
-        flex-grow: 1;
-      }
-
-      .project-links {
-        font-family: var(--mono-font);
+      .date {
+        font-family: var(--mono);
         font-size: 0.8rem;
+        color: var(--faint);
+        padding-top: 0.2rem;
+        white-space: nowrap;
+      }
+
+      .title {
+        font-weight: 650;
+        color: var(--text);
+      }
+
+      .title a {
+        color: inherit;
+      }
+
+      .title .role {
+        font-weight: 400;
+        color: var(--muted);
+      }
+
+      .row p {
+        margin-top: 0.2rem;
+      }
+
+      .row p strong {
+        color: var(--text);
+        font-weight: 500;
+      }
+
+      .links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.25rem 1rem;
+        font-family: var(--mono);
+        font-size: 0.78rem;
         margin-top: 0.5rem;
       }
 
-      .project-links span {
-        color: #ccc;
-        margin: 0 0.5rem;
+      .rows.compact {
+        gap: 0.6rem;
       }
 
-      code,
-      .mono {
-        font-family: var(--mono-font);
-        background: #f5f5f5;
-        padding: 0.1em 0.3em;
-        border-radius: 3px;
-        font-size: 0.9em;
+      .rows.compact a {
+        font-family: var(--mono);
+        font-size: 0.78rem;
+        margin-left: 0.5rem;
       }
 
-      .skills-grid {
+      .note {
+        font-size: 0.9rem;
+        margin-top: 1rem;
+      }
+
+      /* Featured project cards */
+
+      .cards {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-        gap: 1.5rem;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2.5rem 2rem;
       }
 
-      .skill-category strong {
-        font-weight: 700;
-        margin-bottom: 0.5rem;
+      .card .shot {
         display: block;
+        aspect-ratio: 16 / 10;
+        border-radius: 10px;
+        overflow: hidden;
+        background: var(--surface);
+        border: 1px solid var(--border);
+        margin-bottom: 1rem;
       }
+
+      .card .shot img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.3s ease;
+      }
+
+      .card .shot.logo {
+        display: grid;
+        place-items: center;
+        background: #ffffff;
+      }
+
+      .card .shot.logo img {
+        width: 60%;
+        height: auto;
+      }
+
+      .card .shot.fit {
+        background: #ffffff;
+      }
+
+      .card .shot.fit img {
+        object-fit: contain;
+        padding: 0.75rem;
+      }
+
+      .card .shot:hover img {
+        transform: scale(1.03);
+      }
+
+      .card-head {
+        display: flex;
+        justify-content: space-between;
+        align-items: baseline;
+        gap: 1rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .card-head .title {
+        font-size: 1.05rem;
+      }
+
+      .card p {
+        font-size: 0.95rem;
+      }
+
+      .card.wide {
+        grid-column: 1 / -1;
+        display: grid;
+        grid-template-columns: 3fr 2fr;
+        gap: 0 2rem;
+        align-items: center;
+      }
+
+      .card.wide .shot {
+        margin-bottom: 0;
+      }
+
+      /* Footer */
 
       footer {
-        padding: 4rem 0;
+        padding: 3rem 0 4rem;
         font-size: 0.85rem;
-        color: var(--secondary-text);
-        border-top: 1px solid var(--border-color);
-        text-align: center;
+        color: var(--faint);
+        border-top: 1px solid var(--border);
       }
 
-      @media (max-width: 600px) {
+      footer .container {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      footer ul {
+        list-style: none;
+        display: flex;
+        gap: 1.25rem;
+      }
+
+      @media (max-width: 680px) {
         h1 {
           font-size: 2rem;
         }
 
-        h2 {
-          font-size: 1.25rem;
+        .intro p {
+          font-size: 1.05rem;
         }
 
         section {
           padding: 3rem 0;
         }
 
-        header {
-          padding: 1rem 0;
+        nav .sections {
+          display: none;
         }
 
-        nav {
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 0.75rem;
+        .row {
+          grid-template-columns: 1fr;
+          gap: 0.15rem;
         }
 
-        nav ul {
-          gap: 1rem;
-          flex-wrap: wrap;
+        .cards,
+        .card.wide {
+          grid-template-columns: 1fr;
         }
 
-        .entry-header {
-          flex-direction: column;
+        .card.wide .shot {
+          margin-bottom: 1rem;
         }
-
-        .entry-date {
-          margin-top: 0.25rem;
-        }
-
-        .project-item {
-          flex-direction: column;
-          gap: 1rem;
-        }
-
-        .project-thumbnail {
-          width: 80px;
-          height: 80px;
-          margin: 0 auto 0.5rem auto;
-          aspect-ratio: 1 / 1;
-        }
-      }
-
-      /* Smooth scroll */
-      html {
-        scroll-behavior: smooth;
       }
     </style>
   </head>
@@ -316,647 +385,369 @@
   <body>
     <header>
       <div class="container">
-        <nav id="nav-main">
-          <ul>
-            <li><a href="#overview">Overview</a></li>
-            <li><a href="#academia">Experience</a></li>
+        <nav>
+          <a class="home" href="#">David Sehnal</a>
+          <ul class="sections">
+            <li><a href="#experience">Experience</a></li>
             <li><a href="#projects">Projects</a></li>
+            <li><a href="#education">Education</a></li>
           </ul>
           <ul>
-            <li>
-              <a href="https://github.com/dsehnal" target="_blank">GitHub</a>
-            </li>
-            <li>
-              <a
-                href="https://www.linkedin.com/in/david-sehnal/"
-                target="_blank"
-                >LinkedIn</a
-              >
-            </li>
-            <li>
-              <a
-                href="https://scholar.google.com/citations?user=ywe55OgAAAAJ"
-                target="_blank"
-                >Scholar</a
-              >
-            </li>
+            <li><a href="https://github.com/dsehnal" target="_blank" rel="noopener">GitHub</a></li>
+            <li><a href="https://www.linkedin.com/in/david-sehnal/" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="https://scholar.google.com/citations?user=ywe55OgAAAAJ" target="_blank" rel="noopener">Scholar</a></li>
           </ul>
         </nav>
       </div>
     </header>
 
     <main class="container">
-      <section id="overview" class="overview">
+      <section class="intro">
         <h1>David Sehnal, Ph.D.</h1>
-        <h2>Platform Architect & Research Scientist</h2>
         <p>
-          My work focuses on defining data representations, visualization systems, and platform
-          architectures. This includes Mol* (the visualization standard across PDB and AlphaFold DB),
-          BinaryCIF (high-performance structural data format), and DBTL
-          orchestration platforms used in modern drug discovery.
+          I build software for working with molecular structures. Most visibly
+          <strong>Mol*</strong>, the 3D viewer used by RCSB PDB, PDBe and
+          AlphaFold DB, where I'm the lead architect, along with the data formats and services behind it
+          (<strong>BinaryCIF</strong>, <strong>ModelServer</strong>,
+          <strong>VolumeServer</strong>) and the newer
+          <strong>MolViewSpec</strong> and <strong>MolViewStories</strong>.
+        </p>
+        <p>
+          On the industry side, I spent five years at Iambic Therapeutics,
+          going from frontend engineer to principal software engineer and
+          building the platform that connected their AI models to the lab. Currently at a
+          stealth startup. I also lead a small research group at Masaryk
+          University in Brno.
         </p>
       </section>
 
-
-      <section id="academia">
-        <h3>Academic Research & Leadership</h3>
-        <div class="entry">
-          <div class="entry-header">
-            <span class="entry-title">Masaryk University / NCBR</span>
-            <span class="entry-date">2021 – Present</span>
-          </div>
-          <p>
-            Principal Investigator leading a team developing macromolecular
-            analysis and visualization tools.
-          </p>
-        </div>
-        <div class="entry">
-          <div class="entry-header">
-            <span class="entry-title">Masaryk University / CEITEC</span>
-            <span class="entry-date">2015 – 2021</span>
-          </div>
-          <p>
-            Research Specialist focused on structural bioinformatics and
-            chemical pattern detection.
-          </p>
-        </div>
-      </section>
-
-      <section id="industry">
-        <h3>Industry Platform Engineering</h3>
-        <div class="entry">
-          <div class="entry-header">
-            <span class="entry-title"
-              ><a href="https://cradle.bio" target="_blank"
-                >Cradle Bio<span class="external-icon">↗</span></a
-              ></span
-            >
-            <span class="entry-date">2025 – Present</span>
-          </div>
-          <p>
-            Working on a protein engineering platform.
-          </p>
-        </div>
-        <div class="entry">
-          <div class="entry-header">
-            <span class="entry-title"
-              ><a href="https://iambic.ai" target="_blank"
-                >Iambic Therapeutics<span class="external-icon">↗</span></a
-              ></span
-            >
-            <span class="entry-date">2020 – 2025</span>
-          </div>
-          <p>
-            Owned the development and architectural evolution of custom DBTL
-            orchestration/LIMS platform. Engineered automated pipelines that
-            transformed manual, low-throughput processes into high-volume
-            centralized systems.
-          </p>
-        </div>
-        <div class="entry">
-          <div class="entry-header">
-            <span class="entry-title"
-              ><a href="https://www.ebi.ac.uk/pdbe/" target="_blank"
-                >Protein Data Bank in Europe (PDBe-EBI)<span
-                  class="external-icon"
-                  >↗</span
-                ></a
-              ></span
-            >
-            <span class="entry-date">2016 – Present</span>
-          </div>
-          <p>
-            Establishing shared visualization standards (Mol*, BinaryCIF) across the global structural biology ecosystem.
-          </p>
-        </div>
-      </section>
-
-
-      <section id="education">
-        <h3>Education</h3>
-        <div class="entry">
-          <div class="entry-header">
-            <span class="entry-title"
-              >Ph.D. in Biomolecular Chemistry and Bioinformatics</span
-            >
-            <span class="entry-date">2023</span>
-          </div>
-          <p style="margin-bottom: 0;">
-            Masaryk University, Faculty of Science 
-        </p>
-            <div class="project-links">
-                <a href="https://is.muni.cz/th/vw5er/?lang=en" target="_blank">Thesis: Visualization of Biomacromolecules</a>
+      <section id="experience">
+        <h2>Experience</h2>
+        <div class="rows">
+          <div class="row">
+            <span class="date">2026 –</span>
+            <div>
+              <div class="title">Stealth Startup</div>
             </div>
-        </div>
-        <div class="entry">
-          <div class="entry-header">
-            <span class="entry-title">Ph.D. in Applied Computer Science</span>
-            <span class="entry-date">2015</span>
           </div>
-          <p style="margin-bottom: 0;">
-            Masaryk University, Faculty of Informatics
-          </p>
-            <div class="project-links">
-                <a href="https://is.muni.cz/th/ri9hp/?lang=en" target="_blank">Thesis: Methods for the Analysis of 3D Structural Fragments in Biomolecules</a>
+          <div class="row">
+            <span class="date">2025 – 2026</span>
+            <div>
+              <div class="title"><a href="https://cradle.bio" target="_blank" rel="noopener">Cradle Bio</a></div>
+              <p>Worked on a protein engineering platform.</p>
             </div>
-        </div>
-        <div class="entry">
-          <div class="entry-header">
-            <span class="entry-title"
-              >M.Sc. in Theoretical Computer Science</span
-            >
-            <span class="entry-date">2010</span>
           </div>
-          <p>Masaryk University, Faculty of Informatics</p>
+          <div class="row">
+            <span class="date">2020 – 2025</span>
+            <div>
+              <div class="title">
+                <a href="https://iambic.ai" target="_blank" rel="noopener">Iambic Therapeutics</a>
+                <span class="role">· Frontend Engineer → Principal Software Engineer</span>
+              </div>
+              <p>
+                Designed and built the in-house LIMS behind Iambic's
+                high-throughput experimentation platform for drug discovery,
+                running design–build–test–learn cycles from AI/ML predictions
+                into automated wet-lab processes and back. Worked across
+                software, machine learning, drug discovery and wet-lab teams.
+              </p>
+              <p>
+                Earlier, built Envision, an interactive quantum chemistry app
+                for teaching.
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <span class="date">2016 –</span>
+            <div>
+              <div class="title">
+                <a href="https://www.ebi.ac.uk/pdbe/" target="_blank" rel="noopener">PDBe (EMBL-EBI)</a>
+                <span class="role">· Collaboration and consulting</span>
+              </div>
+              <p>
+                Long-running collaboration on Mol*, BinaryCIF and the data
+                services behind them.
+              </p>
+            </div>
+          </div>
+          <div class="row">
+            <span class="date">2015 –</span>
+            <div>
+              <div class="title">
+                Masaryk University
+                <span class="role">· Researcher → PI</span>
+              </div>
+              <p>
+                <strong>Principal Investigator</strong>, NCBR (2021 –). Lead a
+                small team building tools for macromolecular analysis and
+                visualization, mostly around Mol*.
+              </p>
+              <p>
+                <strong>Research Specialist</strong>, CEITEC (2015 – 2021).
+                Structural bioinformatics: structural pattern search, ligand
+                validation, tunnel detection.
+              </p>
+            </div>
+          </div>
         </div>
       </section>
 
       <section id="projects">
-        <h3>Projects</h3>
+        <h2>Projects</h2>
 
-        <h4 style="margin-top: 2rem">Molecular Visualization</h4>
-        <p
-          style="
-            margin-bottom: 2.5rem;
-            max-width: 90%;
-            color: var(--secondary-text);
-          "
-        >
-          A multi-year architectural arc representing a continuous compression
-          of the problem space: from pioneering early browser-based rendering
-          (<strong>LiteMol</strong>), to establishing the unified ecosystem
-          standard (<strong>Mol*</strong>), and ultimately defining a global
-          declarative language for sharing molecular data
-          (<strong>MolViewSpec</strong>).
-        </p>
-        <div class="project-list">
-          <div class="project-item">
-            <img
-              src="img/glyphs/molstar.svg"
-              class="project-thumbnail"
-              alt="Mol*"
-            />
-            <div class="project-info">
-              <div class="entry-header">
-                <span class="entry-title">Mol*</span>
-                <span class="entry-date">2018 – Present</span>
+        <div class="cards">
+          <article class="card wide">
+            <a class="shot logo" href="https://molstar.org" target="_blank" rel="noopener">
+              <img src="img/projects/molstar-logo.png" alt="Mol* logo" />
+            </a>
+            <div>
+              <div class="card-head">
+                <span class="title">Mol*</span>
+                <span class="date">2018 –</span>
               </div>
               <p>
-                A visualization and data access layer that became the de facto
-                standard across the global structural biology ecosystem. It
-                unified previously fragmented tooling into a shared runtime used
-                by the PDB, AlphaFold DB (200M+ structures), and major research
-                institutions, enabling consistent interaction with molecular
-                data at scale.
+                Lead architect. Web toolkit and viewer for 3D molecular structures. It replaced
+                several separate viewers and is now used on RCSB PDB, PDBe,
+                AlphaFold DB and in many other tools.
               </p>
-              <div class="project-links">
-                <a href="https://doi.org/10.1093/nar/gkab314" target="_blank"
-                  >Publication</a
-                >
-                <span>|</span>
-                <a href="https://github.com/molstar/molstar" target="_blank"
-                  >Repo</a
-                >
-                <span>|</span>
-                <a href="https://molstar.org" target="_blank">Web</a>
+              <div class="links">
+                <a href="https://molstar.org" target="_blank" rel="noopener">molstar.org</a>
+                <a href="https://github.com/molstar/molstar" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://doi.org/10.1093/nar/gkab314" target="_blank" rel="noopener">Paper</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <a class="shot fit" href="https://molstar.org/mol-view-spec" target="_blank" rel="noopener">
+              <img src="img/projects/molviewspec.webp" alt="A molecular scene described with MolViewSpec" loading="lazy" />
+            </a>
+            <div class="card-head">
+              <span class="title">MolViewSpec</span>
+              <span class="date">2024 –</span>
+            </div>
+            <p>
+              Led the project. A declarative format for molecular scenes: what to load, how to
+              color and label it. Scenes can be saved, shared and rebuilt.
+            </p>
+            <div class="links">
+              <a href="https://molstar.org/mol-view-spec" target="_blank" rel="noopener">Web</a>
+              <a href="https://github.com/molstar/mol-view-spec" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://doi.org/10.1093/nar/gkaf370" target="_blank" rel="noopener">Paper</a>
+              <a href="https://doi.org/10.1002/cpz1.1099" target="_blank" rel="noopener">Protocol</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <a class="shot fit" href="https://molstar.org/mol-view-stories" target="_blank" rel="noopener">
+              <img src="img/projects/molviewstories.webp" alt="An interactive molecular story" loading="lazy" />
+            </a>
+            <div class="card-head">
+              <span class="title">MolViewStories</span>
+              <span class="date">2026 –</span>
+            </div>
+            <p>
+              Led the project. Write and share interactive molecular stories: text paired with
+              MolViewSpec scenes, built from code.
+            </p>
+            <div class="links">
+              <a href="https://molstar.org/mol-view-stories" target="_blank" rel="noopener">Web</a>
+              <a href="https://github.com/molstar/mol-view-stories" target="_blank" rel="noopener">GitHub</a>
+              <a href="https://doi.org/10.1002/pro.70540" target="_blank" rel="noopener">Paper</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <a class="shot fit" href="https://molstar.org/me" target="_blank" rel="noopener">
+              <img src="img/projects/mesoscale.webp" alt="A mesoscale model in Mesoscale Explorer" loading="lazy" />
+            </a>
+            <div class="card-head">
+              <span class="title">Mesoscale Explorer</span>
+              <span class="date">2024 –</span>
+            </div>
+            <p>
+              A Mol* app for exploring very large models: viruses, bacteria
+              and whole cells.
+            </p>
+            <div class="links">
+              <a href="https://molstar.org/me" target="_blank" rel="noopener">Web</a>
+              <a href="https://doi.org/10.1002/pro.5177" target="_blank" rel="noopener">Paper</a>
+            </div>
+          </article>
+
+          <article class="card">
+            <a class="shot fit" href="https://molstar.org/volumes-and-segmentations/" target="_blank" rel="noopener">
+              <img src="img/projects/volumes.webp" alt="A density map with segmentation in Mol*" loading="lazy" />
+            </a>
+            <div class="card-head">
+              <span class="title">Volumes &amp; Segmentations</span>
+              <span class="date">2021 –</span>
+            </div>
+            <p>
+              Led the project. Mol* extension for large volumetric data and segmentations from
+              cryo-EM and other imaging, shown alongside atomic models.
+            </p>
+            <div class="links">
+              <a href="https://molstar.org/volumes-and-segmentations/" target="_blank" rel="noopener">Web</a>
+              <a href="https://doi.org/10.1093/nar/gkad411" target="_blank" rel="noopener">Paper</a>
+              <a href="https://doi.org/10.1002/cpz1.70070" target="_blank" rel="noopener">Protocol</a>
+            </div>
+          </article>
+        </div>
+
+        <h3>Data formats &amp; services</h3>
+        <div class="rows">
+          <div class="row">
+            <span class="date">2016 –</span>
+            <div>
+              <div class="title">BinaryCIF</div>
+              <p>
+                Designed the format. A binary encoding of mmCIF that makes structure files up to
+                ~75% smaller and faster to parse.
+              </p>
+              <div class="links">
+                <a href="https://doi.org/10.1371/journal.pcbi.1008247" target="_blank" rel="noopener">Paper</a>
               </div>
             </div>
           </div>
-          <div class="project-item">
-            <img
-              src="img/glyphs/mol-view-spec.svg"
-              class="project-thumbnail"
-              alt="MolViewSpec"
-            />
-            <div class="project-info">
-              <div class="entry-header">
-                <span class="entry-title">MolViewSpec</span>
-                <span class="entry-date">2024 – Present</span>
-              </div>
+          <div class="row">
+            <span class="date">2016 –</span>
+            <div>
+              <div class="title">ModelServer &amp; VolumeServer</div>
               <p>
-                A declarative language for describing complex molecular scenes.
+                Designed and built both. They serve just the part of a structure or density map a client asks
+                for, instead of whole files. Running at RCSB PDB.
               </p>
-              <div class="project-links">
-                <a href="https://doi.org/10.1093/nar/gkaf370" target="_blank"
-                  >Publication 1</a
-                >
-                <span>|</span>
-                <a href="https://doi.org/10.1002/cpz1.1099" target="_blank"
-                  >Publication 2</a
-                >
-                <span>|</span>
-                <a
-                  href="https://github.com/molstar/mol-view-spec"
-                  target="_blank"
-                  >Repo</a
-                >
-                <span>|</span>
-                <a href="https://molstar.org/mol-view-spec" target="_blank"
-                  >Web</a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="project-item">
-            <img
-              src="img/glyphs/mol-view-stories.svg"
-              class="project-thumbnail"
-              alt="MolViewStories"
-            />
-            <div class="project-info">
-              <div class="entry-header">
-                <span class="entry-title">MolViewStories</span>
-                <span class="entry-date">2026 – Present</span>
-              </div>
-              <p>
-                A tool for creating and sharing interactive molecular stories.
-              </p>
-              <div class="project-links">
-                <a href="https://doi.org/10.1002/pro.70540" target="_blank"
-                  >Publication</a
-                >
-                <span>|</span>
-                <a
-                  href="https://github.com/molstar/mol-view-stories"
-                  target="_blank"
-                  >Repo</a
-                >
-                <span>|</span>
-                <a href="https://molstar.org/mol-view-stories" target="_blank"
-                  >Web</a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="project-item">
-            <img
-              src="img/glyphs/mesoscale-explorer.svg"
-              class="project-thumbnail"
-              alt="Mesoscale Explorer"
-            />
-            <div class="project-info">
-              <div class="entry-header">
-                <span class="entry-title">Mesoscale Explorer</span>
-                <span class="entry-date">2024 – Present</span>
-              </div>
-              <p>A tool for exploring mesoscale molecular structures.</p>
-              <div class="project-links">
-                <a href="https://doi.org/10.1002/pro.5177" target="_blank"
-                  >Publication</a
-                >
-                <span>|</span>
-                <a href="https://molstar.org/me" target="_blank">Web</a>
-              </div>
-            </div>
-          </div>
-          <div class="project-item">
-            <img
-              src="img/glyphs/molstar-volumes.svg"
-              class="project-thumbnail"
-              alt="Mol* Volumes and Segmentations"
-            />
-            <div class="project-info">
-              <div class="entry-header">
-                <span class="entry-title">Mol* Volumes and Segmentations</span>
-                <span class="entry-date">2021 – Present</span>
-              </div>
-              <p>
-                Extending Mol* to support efficient visualization of volumetric
-                data and segmentations, enabling integrated exploration of
-                density maps and structural models.
-              </p>
-              <div class="project-links">
-                <a href="https://doi.org/10.1002/cpz1.70070" target="_blank"
-                  >Publication 1</a
-                >
-                <span>|</span>
-                <a href="https://doi.org/10.1093/nar/gkad411" target="_blank"
-                  >Publication 2</a
-                >
-                <span>|</span>
-                <a
-                  href="https://molstar.org/volumes-and-segmentations/"
-                  target="_blank"
-                  >Web</a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="project-item">
-            <img
-              src="img/glyphs/litemol.svg"
-              class="project-thumbnail"
-              alt="LiteMol"
-            />
-            <div class="project-info">
-              <div class="entry-header">
-                <span class="entry-title">LiteMol</span>
-                <span class="entry-date">2015 – 2017</span>
-              </div>
-              <p>
-                The pioneering precursor to Mol* for fast, browser-based 3D
-                macromolecular visualization.
-              </p>
-              <div class="project-links">
-                <a href="https://rdcu.be/z0Hf" target="_blank">Publication</a>
-                <span>|</span>
-                <a href="https://github.com/dsehnal/LiteMol" target="_blank"
-                  >Repo</a
-                >
-                <span>|</span>
-                <a href="https://litemol.org" target="_blank">Web</a>
+              <div class="links">
+                <a href="https://github.com/molstar/molstar" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://models.rcsb.org" target="_blank" rel="noopener">models.rcsb.org</a>
+                <a href="https://maps.rcsb.org" target="_blank" rel="noopener">maps.rcsb.org</a>
               </div>
             </div>
           </div>
         </div>
 
-        <h4 style="margin-top: 2rem">Infrastructure & Data Delivery</h4>
-        <p
-          style="
-            margin-bottom: 2.5rem;
-            max-width: 90%;
-            color: var(--secondary-text);
-          "
-        >
-          Solving the physics of high-volume scientific data transmission.
-          Designing bespoke compression standards (<strong>BinaryCIF</strong>)
-          and scalable, on-demand query services
-          (<strong>ModelServer/VolumeServer</strong>) to shift bottlenecks from
-          network bandwidth to localized compute, thereby enabling platforms
-          like the wwPDB to distribute massive datasets in real time.
-        </p>
-        <div class="project-list">
-          <div class="project-item">
-            <img
-              src="img/glyphs/binarycif.svg"
-              class="project-thumbnail"
-              alt="BinaryCIF"
-            />
-            <div class="project-info">
-              <div class="entry-header">
-                <span class="entry-title">BinaryCIF</span>
-                <span class="entry-date">2016 – Present</span>
-              </div>
-              <p>
-                A macromolecular data format reducing structural data footprints
-                by up to ~75%.
-              </p>
-              <div class="project-links">
-                <a
-                  href="https://doi.org/10.1371/journal.pcbi.1008247"
-                  target="_blank"
-                  >Publication</a
-                >
+        <h3>Earlier work</h3>
+        <div class="rows">
+          <div class="row">
+            <span class="date">2015 – 2017</span>
+            <div>
+              <div class="title">LiteMol</div>
+              <p>Author. Browser-based 3D viewer for large structures; the predecessor of Mol*.</p>
+              <div class="links">
+                <a href="https://litemol.org" target="_blank" rel="noopener">Web</a>
+                <a href="https://github.com/dsehnal/LiteMol" target="_blank" rel="noopener">GitHub</a>
+                <a href="https://rdcu.be/z0Hf" target="_blank" rel="noopener">Paper</a>
               </div>
             </div>
           </div>
-          <div class="project-item">
-            <img
-              src="img/glyphs/molstar-servers.svg"
-              class="project-thumbnail"
-              alt="ModelServer & VolumeServer"
-            />
-            <div class="project-info">
-              <div class="entry-header">
-                <span class="entry-title">ModelServer & VolumeServer</span>
-                <span class="entry-date">2016 – Present</span>
-              </div>
-              <p>
-                Scalable delivery mechanisms for high-performance data transfer
-                across the wwPDB.
-              </p>
-              <div class="project-links">
-                <a href="https://rdcu.be/z0Hf" target="_blank">Publication</a>
-                <span>|</span>
-                <a href="https://github.com/molstar/molstar" target="_blank"
-                  >Repo</a
-                >
-                <span>|</span>
-                <a href="https://models.rcsb.org" target="_blank"
-                  >ModelServer@RCSB</a
-                >
-                <span>|</span>
-                <a href="https://maps.rcsb.org" target="_blank"
-                  >VolumeServer@RCSB</a
-                >
+          <div class="row">
+            <span class="date">2017</span>
+            <div>
+              <div class="title">MolQL</div>
+              <p>Designed the language. A query language for macromolecular structures, used inside Mol*.</p>
+              <div class="links">
+                <a href="https://molql.org" target="_blank" rel="noopener">Web</a>
+                <a href="https://github.com/molql/molql" target="_blank" rel="noopener">GitHub</a>
               </div>
             </div>
           </div>
-        </div>
-
-        <h4 style="margin-top: 2rem">Analysis & Querying</h4>
-        <p
-          style="
-            margin-bottom: 2.5rem;
-            max-width: 90%;
-            color: var(--secondary-text);
-          "
-        >
-          Translating structural complexity into computable geometry.
-          Abstracting molecular analysis by building domain-specific query
-          languages (<strong>MolQL</strong>) alongside highly specialized
-          algorithms (<strong>MOLE</strong>) to empower researchers with
-          systematic, mathematically rigorous tools.
-        </p>
-        <div class="project-list">
-          <div class="project-item">
-            <img
-              src="img/glyphs/mole-online.svg"
-              class="project-thumbnail"
-              alt="MOLE 2 & MOLEonline"
-            />
-            <div class="project-info">
-              <div class="entry-header">
-                <span class="entry-title">MOLE 2 & MOLEonline</span>
-                <span class="entry-date">2014 – 2018</span>
-              </div>
-              <p>
-                Tools for the detection and characterization of tunnels and
-                channels in biomacromolecules.
-              </p>
-              <div class="project-links">
-                <a
-                  href="https://dx.doi.org/10.1186/1758-2946-5-39"
-                  target="_blank"
-                  >Publication 1</a
-                >
-                <span>|</span>
-                <a
-                  href="https://academic.oup.com/nar/article/46/W1/W368/4990029"
-                  target="_blank"
-                  >Publication 2</a
-                >
-                <span>|</span>
-                <a
-                  href="https://webchem.ncbr.muni.cz/Platform/App/Mole"
-                  target="_blank"
-                  >MOLE 2 Web</a
-                >
-                <span>|</span>
-                <a href="https://mole.upol.cz" target="_blank"
-                  >MOLEonline Web</a
-                >
+          <div class="row">
+            <span class="date">2014 – 2018</span>
+            <div>
+              <div class="title">MOLE 2 &amp; MOLEonline</div>
+              <p>Detecting and characterizing tunnels and channels in proteins.</p>
+              <div class="links">
+                <a href="https://mole.upol.cz" target="_blank" rel="noopener">MOLEonline</a>
+                <a href="https://webchem.ncbr.muni.cz/Platform/App/Mole" target="_blank" rel="noopener">MOLE 2</a>
+                <a href="https://dx.doi.org/10.1186/1758-2946-5-39" target="_blank" rel="noopener">Paper</a>
+                <a href="https://academic.oup.com/nar/article/46/W1/W368/4990029" target="_blank" rel="noopener">Paper</a>
               </div>
             </div>
           </div>
-          <div class="project-item">
-            <img
-              src="img/glyphs/molql.svg"
-              class="project-thumbnail"
-              alt="MolQL"
-            />
-            <div class="project-info">
-              <div class="entry-header">
-                <span class="entry-title">MolQL</span>
-                <span class="entry-date">2017</span>
-              </div>
-              <p>
-                A domain-specific query language for querying macromolecular
-                structures. Used by Mol*.
-              </p>
-              <div class="project-links">
-                <a href="https://github.com/molql/molql" target="_blank"
-                  >Repo</a
-                >
-                <span>|</span>
-                <a href="https://molql.org" target="_blank">Web</a>
+          <div class="row">
+            <span class="date">2015</span>
+            <div>
+              <div class="title">PatternQuery</div>
+              <p>Searching for structural patterns across the PDB; the predecessor of MolQL.</p>
+              <div class="links">
+                <a href="https://webchem.ncbr.muni.cz/Platform/PatternQuery/Index" target="_blank" rel="noopener">Web</a>
+                <a href="https://dx.doi.org/10.1093/nar/gkv561" target="_blank" rel="noopener">Paper</a>
               </div>
             </div>
           </div>
-          <div class="project-item">
-            <img
-              src="img/glyphs/patternquery.svg"
-              class="project-thumbnail"
-              alt="PatternQuery"
-            />
-            <div class="project-info">
-              <div class="entry-header">
-                <span class="entry-title">PatternQuery</span>
-                <span class="entry-date">2015</span>
-              </div>
-              <p>
-                A tool for searching and analyzing structural patterns in
-                biomacromolecules. Precursor to MolQL.
-              </p>
-              <div class="project-links">
-                <a href="https://dx.doi.org/10.1093/nar/gkv561" target="_blank"
-                  >Publication</a
-                >
-                <span>|</span>
-                <a
-                  href="https://webchem.ncbr.muni.cz/Platform/PatternQuery/Index"
-                  target="_blank"
-                  >Web</a
-                >
+          <div class="row">
+            <span class="date">2015</span>
+            <div>
+              <div class="title">AtomicChargeCalculator</div>
+              <p>Fast calculation of partial atomic charges for large molecules.</p>
+              <div class="links">
+                <a href="https://webchem.ncbr.muni.cz/Platform/ChargeCalculator/" target="_blank" rel="noopener">Web</a>
+                <a href="https://dx.doi.org/10.1186/s13321-015-0099-x" target="_blank" rel="noopener">Paper</a>
               </div>
             </div>
           </div>
-          <div class="project-item">
-            <img
-              src="img/glyphs/charge-calculator.svg"
-              class="project-thumbnail"
-              alt="AtomicChargeCalculator"
-            />
-            <div class="project-info">
-              <div class="entry-header">
-                <span class="entry-title">AtomicChargeCalculator</span>
-                <span class="entry-date">2015</span>
-              </div>
-              <p>A tool for calculating atomic charges in biomacromolecules.</p>
-              <div class="project-links">
-                <a
-                  href="https://dx.doi.org/10.1186/s13321-015-0099-x"
-                  target="_blank"
-                  >Publication</a
-                >
-                <span>|</span>
-                <a
-                  href="https://webchem.ncbr.muni.cz/Platform/ChargeCalculator/"
-                  target="_blank"
-                  >Web</a
-                >
+          <div class="row">
+            <span class="date">2014 – 2015</span>
+            <div>
+              <div class="title">MotiveValidator &amp; ValidatorDB</div>
+              <p>Validating ligand and residue annotations in the PDB.</p>
+              <div class="links">
+                <a href="https://webchem.ncbr.muni.cz/Platform/MotiveValidator" target="_blank" rel="noopener">MotiveValidator</a>
+                <a href="https://webchem.ncbr.muni.cz/Platform/ValidatorDb/Index" target="_blank" rel="noopener">ValidatorDB</a>
+                <a href="https://academic.oup.com/nar/article/42/W1/W227/2437419" target="_blank" rel="noopener">Paper</a>
+                <a href="https://academic.oup.com/nar/article/43/D1/D369/2437721" target="_blank" rel="noopener">Paper</a>
               </div>
             </div>
           </div>
-          <div class="project-item">
-            <img
-              src="img/glyphs/motive-validator.svg"
-              class="project-thumbnail"
-              alt="MotiveValidator"
-            />
-            <div class="project-info">
-              <div class="entry-header">
-                <span class="entry-title">MotiveValidator & ValidatorDB</span>
-                <span class="entry-date">2014 – 2015</span>
-              </div>
-              <p>A tool for validation of ligands in the Protein Data Bank.</p>
-              <div class="project-links">
-                <a
-                  href="https://academic.oup.com/nar/article/42/W1/W227/2437419"
-                  target="_blank"
-                  >Publication 1</a
-                >
-                <span>|</span>
-                <a
-                  href="https://academic.oup.com/nar/article/43/D1/D369/2437721"
-                  target="_blank"
-                  >Publication 2</a
-                >
-                <span>|</span>
-                <a
-                  href="https://webchem.ncbr.muni.cz/Platform/MotiveValidator"
-                  target="_blank"
-                  >MotiveValidator Web</a
-                >
-                <span>|</span>
-                <a
-                  href="https://webchem.ncbr.muni.cz/Platform/ValidatorDb/Index"
-                  target="_blank"
-                  >ValidatorDB Web</a
-                >
-              </div>
-            </div>
-          </div>
-          <div class="project-item">
-            <img
-              src="img/glyphs/site-binder.svg"
-              class="project-thumbnail"
-              alt="SiteBinder"
-            />
-            <div class="project-info">
-              <div class="entry-header">
-                <span class="entry-title">SiteBinder</span>
-                <span class="entry-date">2011</span>
-              </div>
-              <p>A tool for superimposing multiple 3D structural motifs.</p>
-              <div class="project-links">
-                <a
-                  href="https://lirias.kuleuven.be/retrieve/a9f5c1e2-c05e-4d41-b60b-23c11829677a"
-                  target="_blank"
-                  >Publication</a
-                >
+          <div class="row">
+            <span class="date">2011</span>
+            <div>
+              <div class="title">SiteBinder</div>
+              <p>Superimposing many 3D structural motifs at once.</p>
+              <div class="links">
+                <a href="https://lirias.kuleuven.be/retrieve/a9f5c1e2-c05e-4d41-b60b-23c11829677a" target="_blank" rel="noopener">Paper</a>
               </div>
             </div>
           </div>
         </div>
       </section>
+
+      <section id="education">
+        <h2>Education</h2>
+        <div class="rows compact">
+          <div class="row">
+            <span class="date">2023</span>
+            <div>
+              <span class="title">Ph.D., Biomolecular Chemistry and Bioinformatics</span>
+              <a href="https://is.muni.cz/th/vw5er/?lang=en" target="_blank" rel="noopener">thesis</a>
+            </div>
+          </div>
+          <div class="row">
+            <span class="date">2015</span>
+            <div>
+              <span class="title">Ph.D., Applied Computer Science</span>
+              <a href="https://is.muni.cz/th/ri9hp/?lang=en" target="_blank" rel="noopener">thesis</a>
+            </div>
+          </div>
+          <div class="row">
+            <span class="date">2010</span>
+            <div><span class="title">M.Sc., Theoretical Computer Science</span></div>
+          </div>
+        </div>
+        <p class="note">All at Masaryk University, Brno.</p>
+      </section>
     </main>
 
-    <script>
-      // Smooth scrolling for navigation links
-      document.querySelectorAll('nav a[href^="#"]').forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          const targetId = this.getAttribute("href").substring(1);
-          const targetElement = document.getElementById(targetId);
-          if (targetElement) {
-            window.scrollTo({
-              top: targetElement.offsetTop - 50, // Adjust for sticky header
-              behavior: "smooth",
-            });
-          }
-        });
-      });
-    </script>
+    <footer>
+      <div class="container">
+        <span>David Sehnal</span>
+        <ul>
+          <li><a href="https://github.com/dsehnal" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="https://www.linkedin.com/in/david-sehnal/" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://scholar.google.com/citations?user=ywe55OgAAAAJ" target="_blank" rel="noopener">Scholar</a></li>
+        </ul>
+      </div>
+    </footer>
   </body>
 </html>

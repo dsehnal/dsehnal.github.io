@@ -1,0 +1,1 @@
+function e(e,t){return`${e}${e[e.length-1]===`/`||t[0]===`/`?``:`/`}${t}`}export{e as t};

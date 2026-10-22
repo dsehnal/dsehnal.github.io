@@ -1,0 +1,1 @@
+import{c as e,l as t}from"./from-om-wJJit.js";function n(n,r){return t(function(t,i){var a=0;t.subscribe(e(i,function(e){return n.call(r,e,a++)&&i.next(e)}))})}export{n as t};
